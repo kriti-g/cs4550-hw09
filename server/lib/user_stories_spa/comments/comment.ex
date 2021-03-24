@@ -4,8 +4,9 @@ defmodule UserStoriesSpa.Comments.Comment do
 
   schema "comments" do
     field :body, :string
-    field :event_id, :id
-    field :user_id, :id
+
+    belongs_to :event, UserStoriesSpa.Events.Event
+    belongs_to :user, UserStoriesSpa.Users.User
 
     timestamps()
   end

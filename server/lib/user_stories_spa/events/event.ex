@@ -6,7 +6,10 @@ defmodule UserStoriesSpa.Events.Event do
     field :date, :naive_datetime
     field :desc, :string
     field :name, :string
-    field :user_id, :id
+
+    belongs_to :user, UserStoriesSpa.Users.User
+    has_many :comments, UserStoriesSpa.Comments.Comment, on_delete: :delete_all
+    has_many :invites, UserStoriesSpa.Invites.Invite, on_delete: :delete_all
 
     timestamps()
   end

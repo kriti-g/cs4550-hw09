@@ -7,6 +7,10 @@ defmodule UserStoriesSpa.Users.User do
     field :name, :string
     field :password_hash, :string
 
+    has_many :events, UserStoriesSpa.Events.Event, on_delete: :delete_all
+    has_many :comments, UserStoriesSpa.Comments.Comment, on_delete: :delete_all
+    has_many :invites, UserStoriesSpa.Invites.Invite, on_delete: :delete_all
+    
     timestamps()
   end
 
