@@ -13,10 +13,11 @@ defmodule UserStoriesSpaWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", UserStoriesSpaWeb do
-    pipe_through :browser
+  scope "/api/v1", UserStoriesSpaWeb do
+    pipe_through :api
 
     get "/", PageController, :index
+    resources "/users", UserController, except: [:new, :edit]
   end
 
   # Other scopes may use custom stacks.
