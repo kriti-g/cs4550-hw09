@@ -2,8 +2,8 @@ use Mix.Config
 
 # Configure your database
 config :user_stories_spa, UserStoriesSpa.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "user_stories_spa",
+  password: "ainuu2vaeD6i",
   database: "user_stories_spa_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,

@@ -18,6 +18,9 @@ defmodule UserStoriesSpaWeb.Router do
 
     get "/", PageController, :index
     resources "/users", UserController, except: [:new, :edit]
+    resources "/events", EventController, except: [:new, :edit]
+    resources "/comments", CommentController, except: [:new, :edit]
+    resources "/invites", InviteController, except: [:new, :edit]
   end
 
   # Other scopes may use custom stacks.

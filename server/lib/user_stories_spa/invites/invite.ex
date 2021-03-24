@@ -13,7 +13,7 @@ defmodule UserStoriesSpa.Invites.Invite do
   @doc false
   def changeset(invite, attrs) do
     invite
-    |> cast(attrs, [:response])
-    |> validate_required([:response])
+    |> cast(attrs, [:response, :event_id, :user_id])
+    |> validate_required([:response, :event_id, :user_id])
   end
 end

@@ -3,10 +3,10 @@ defmodule UserStoriesSpa.Repo.Migrations.CreateEvents do
 
   def change do
     create table(:events) do
-      add :name, :string
-      add :desc, :text
-      add :date, :naive_datetime
-      add :user_id, references(:users, on_delete: :nothing)
+      add :name, :string, null: false
+      add :desc, :text, null: false
+      add :date, :naive_datetime, null: false
+      add :user_id, references(:users, on_delete: :delete_all), null: false
 
       timestamps()
     end

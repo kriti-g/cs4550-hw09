@@ -3,9 +3,9 @@ defmodule UserStoriesSpa.Repo.Migrations.CreateInvites do
 
   def change do
     create table(:invites) do
-      add :response, :string
-      add :event_id, references(:events, on_delete: :nothing)
-      add :user_id, references(:users, on_delete: :nothing)
+      add :response, :string, null: false
+      add :event_id, references(:events, on_delete: :delete_all), null: false
+      add :user_id, references(:users, on_delete: :delete_all), null: false
 
       timestamps()
     end

@@ -14,7 +14,7 @@ defmodule UserStoriesSpa.Events.Event do
   @doc false
   def changeset(event, attrs) do
     event
-    |> cast(attrs, [:name, :desc, :date])
-    |> validate_required([:name, :desc, :date])
+    |> cast(attrs, [:name, :desc, :date, :user_id])
+    |> validate_required([:name, :desc, :date, :user_id])
   end
 end
