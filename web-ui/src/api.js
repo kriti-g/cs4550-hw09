@@ -22,4 +22,5 @@ export function fetch_events() {
 
 export function load_defaults() {
     fetch_users();
+    fetch_events();
 }
