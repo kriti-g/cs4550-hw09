@@ -27,7 +27,7 @@ function LoggedIn({events, session}) {
     } else {
       (<></>)
     }
-  };
+  });
   return (
     <>
     <Row>
