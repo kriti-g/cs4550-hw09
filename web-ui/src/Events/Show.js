@@ -31,6 +31,8 @@ function CommentShow({comment, session, owner_rights}) {
 //   return (<></>);
 // }
 
+
+
 function CommentListShow({comments, session, owner_rights}){
   let rendered = comments.map((com) => <CommentShow comment={com} session={session} owner_rights={owner_rights}/>);
   return (

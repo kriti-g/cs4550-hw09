@@ -4,7 +4,6 @@ import Flatpickr from "react-flatpickr";
 import { useState } from 'react';
 import { create_event } from '../api';
 
-
 export default function EventsNew() {
   let [eve, setEvent] = useState({});
 
@@ -31,6 +30,7 @@ export default function EventsNew() {
     let e1 = Object.assign({}, eve);
     e1["date"] = date;
     setEvent(e1);
+    console.log(e1);
   }
 
   // <DatePicker selected={eve.date}
