@@ -3,12 +3,23 @@ import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetch_event, delete_event, fetch_events, create_comment, delete_comment } from '../api';
 import { connect } from 'react-redux';
-import { isOwner } from './Helper';
+import { isOwner, countInvites } from './Helper';
 
-// function InviteListShow({invites, owner_rights}) {
-//   //let counted = countInvites(invites);
-//
-// }
+function InviteListShow({invites, owner_rights}) {
+    let counted = countInvites(invites);
+    let rendered = invites.map((com) => <CommentShow comment={com} session={session} owner_rights={owner_rights}/>);
+    return (
+      <>
+      <CommentsNew eve={eve} session={session}/>
+      <h4>Comments</h4>
+      {rendered}
+      </>);
+
+}
+
+function InviteShow({invite, owner_rights}) {
+  return (<p>{invite.user.name} - {invite.response}</p>)
+}
 
 function CommentsNew({eve, session}) {
   let [com, setComment] = useState({});
@@ -55,8 +66,9 @@ function CommentControls({comment,  session, owner_rights}) {
   let deleteLink = "/events/" + comment.event_id;
 
   function deleteComment() {
-    // delete the event, then update the list that the app works from.
+    // delete the comment, update this event
     delete_comment(comment);
+    fetch_event(comment.event_id);
     fetch_events();
   }
 
@@ -179,7 +191,6 @@ function EventPage({error}) {
       </Row>
     );
   }
-
   return (
     <div>
       { error_row }

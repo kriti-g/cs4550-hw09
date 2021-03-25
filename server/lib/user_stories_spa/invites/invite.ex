@@ -3,7 +3,7 @@ defmodule UserStoriesSpa.Invites.Invite do
   import Ecto.Changeset
 
   schema "invites" do
-    field :response, :string
+    field :response, Ecto.Enum, values: [:Maybe, :Yes, :No, :Pending]
 
     belongs_to :event, UserStoriesSpa.Events.Event
     belongs_to :user, UserStoriesSpa.Users.User

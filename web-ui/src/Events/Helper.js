@@ -5,3 +5,15 @@ export function inInvites(user_id, eve) {
 export function isOwner(user_id, eve) {
   return user_id === eve.user.id;
 }
+
+export function countInvites(invites) {
+  return invites.reduce((responses, invite) => {
+    let [yes, maybe, no, pending] = responses
+    switch(invite.response) {
+      case "Yes": return [yes+1, maybe, no, pending];
+      case "Maybe": return [yes, maybe+1, no, pending];
+      case "No": return [yes, maybe, no+1, pending];
+      case "Pending": return [yes, maybe, no, pending+1];
+    }
+  })
+}

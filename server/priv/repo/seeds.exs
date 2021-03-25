@@ -42,6 +42,14 @@ c1 = %Comment{
 
 Repo.insert!(c1)
 
+i1 = %Invite{
+  event_id: event.id,
+  user_id: bob.id,
+  response: :Maybe
+}
+
+Repo.insert!(i1)
+
 e2 = %Event{
   user_id: bob.id,
   name: "Bob Event",
