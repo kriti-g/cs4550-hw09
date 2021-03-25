@@ -21,6 +21,7 @@ function Event({eve}) {
 function Feed({events}) {
   let cards = events.map((eve) => <Event eve={eve} key={eve.id} />);
   return (
+    <>
     <Row>
     <Col>
     <h2>Your Events</h2>
@@ -30,6 +31,7 @@ function Feed({events}) {
     <Row>
     { cards }
     </Row>
+    </>
   );
 }
 
