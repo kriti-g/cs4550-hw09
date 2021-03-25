@@ -24,7 +24,7 @@ defmodule UserStoriesSpaWeb.InviteController do
         email: email,
         password_hash: ""
       }
-      {:ok, created} = Users.create_user(new_user)
+      {:ok, created} = Users.create_user_artificial(new_user)
       lin = "http://events-spa.gkriti.art/users/" <>  to_string(created.id) <> "/edit"
       [lin, Map.put(invite_params, "user_id", created.id)]
     end

@@ -24,6 +24,14 @@ defmodule UserStoriesSpa.Users.User do
     |> unique_constraint(:email)
   end
 
+  def changeset_force(user, attrs) do
+    user
+    |> cast(attrs, [:name, :email, :password_hash])
+    |> validate_required([:name, :email, :password_hash])
+    |> validate_format(:email, ~r/@/)
+    |> unique_constraint(:email)
+  end
+
   def add_password_hash(cset, nil) do
     cset
   end

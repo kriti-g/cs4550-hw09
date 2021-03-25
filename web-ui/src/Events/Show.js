@@ -47,7 +47,7 @@ function NewInvite({eve, session}) {
                           value={inv.user_email} />
           </Form.Group>
           <Button variant="primary" type="submit">
-            Post Comment
+            Invite
           </Button>
         </Form>
       </Col>

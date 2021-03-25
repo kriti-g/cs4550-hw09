@@ -71,6 +71,12 @@ defmodule UserStoriesSpa.Users do
     |> Repo.insert()
   end
 
+  def create_user_artificial(attrs \\ %{}) do
+    %User{}
+    |> User.changeset_force(attrs)
+    |> Repo.insert()
+  end
+
   @doc """
   Updates a user.
 
