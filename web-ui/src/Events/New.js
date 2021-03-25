@@ -3,6 +3,7 @@ import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
 import { useState } from 'react';
 import { create_event } from '../api';
+import { connect } from 'react-redux';
 
 function EventsNew({session}) {
   let [eve, setEvent] = useState({});
