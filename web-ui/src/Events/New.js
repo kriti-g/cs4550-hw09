@@ -39,7 +39,7 @@ function EventsNew({session}) {
     let e1 = Object.assign({}, eve);
     error = (<></>);
     setDate(date);
-    e1["date"] = JSON.stringify(date);
+    e1["date"] = JSON.stringify(date[0]);
     setEvent(e1);
   }
 
