@@ -30,6 +30,23 @@ function CommentShow({comment, session, isOwner}) {
 //   return (<></>);
 // }
 
+function EventShow({eve, session, isOwner}) {
+  return (
+    <Row>
+      <Col>
+        <h1>{eve.name}</h1>
+        <h6>{eve.date}</h6>
+        <h6>{eve.user.name}</h6>
+        <p>{eve.desc}</p>
+        <CommentListShow
+            comments={eve.comments}
+            session={session}
+            isOwner={isOwner}/>
+      </Col>
+    </Row>
+  );
+}
+
 function CommentListShow({comments, session, isOwner}){
   let rendered = comments.map((com) => {
     return (<CommentShow comment={com} session={session} isOwner={isOwner}>);
@@ -42,26 +59,12 @@ function CommentListShow({comments, session, isOwner}){
 }
 
 
-
 function EventPage({events, session}) {
   let {id} = useParams();
   let eve = find_by_id(events, id);
   let isOwner = isOwner(session.user_id, eve);
   if (eve && session) {
-    return (
-      <Row>
-        <Col>
-          <h1>{eve.name}</h1>
-          <h6>{eve.date}</h6>
-          <h6>{eve.user.name}</h6>
-          <p>{eve.desc}</p>
-          <CommentListShow
-              comments={eve.comments}
-              session={session}
-              isOwner={isOwner}/>
-        </Col>
-      </Row>
-    );
+    return (<EventShow eve={eve} session={session} isOwner={isOwner}/>);
   } else {
     return (<h3>Please log in before viewing events.</h3>);
   }
