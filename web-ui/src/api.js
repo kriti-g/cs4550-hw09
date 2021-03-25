@@ -88,6 +88,20 @@ export function delete_comment(com) {
   });
 }
 
+export function create_invite(inv) {
+  let data = new FormData();
+  data.append("invite[user_email]", inv.user_email);
+  data.append("invite[event_id]", inv.event_id);
+  fetch("http://localhost:4000/api/v1/invites", {
+    method: 'POST',
+    // Fetch will handle reading the file object and
+    // submitting this as a multipart/form-data request.
+    body: data,
+  }).then((resp) => {
+    console.log(resp);
+  });
+}
+
 export function update_event(eve) {
   let data = new FormData();
   data.append("event[name]", eve.name);

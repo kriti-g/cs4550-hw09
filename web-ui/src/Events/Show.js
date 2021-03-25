@@ -1,11 +1,11 @@
 import { Row, Col, Form, Button, Nav, NavLink, Card, Alert, ButtonGroup } from 'react-bootstrap';
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fetch_event, delete_event, fetch_events, create_comment, delete_comment } from '../api';
+import { fetch_event, delete_event, fetch_events, create_comment, delete_comment, create_invite } from '../api';
 import { connect } from 'react-redux';
 import { isOwner, countInvites } from './Helper';
 
-function InviteListShow({invites, owner_rights}) {
+function InviteListShow({invites, owner_rights, session, eve}) {
     let counted = countInvites(invites);
     let rendered = invites.map((inv) => <InviteShow key={inv.id} invite={inv} owner_rights={owner_rights}/>);
     return (
@@ -14,6 +14,43 @@ function InviteListShow({invites, owner_rights}) {
       <p>{counted}</p>
       {rendered}
       </>);
+}
+
+function NewInvite({eve, session}) {
+  let [inv, setInvite] = useState({});
+
+  function onSubmit(ev) {
+    ev.preventDefault();
+    if (session) {
+      inv["event_id"] = eve.id;
+      let response = create_invite(inv);
+      fetch_event(eve.id);
+    }
+  }
+
+  function updateEmail(ev) {
+    let i1 = Object.assign({}, inv);
+    i1["user_email"] = ev.target.value;
+    setInvite(i1);
+  }
+
+  return (
+    <Row>
+      <Col>
+        <Form onSubmit={onSubmit}>
+          <Form.Group>
+            <Form.Control type="email"
+                          placeholder="Type a new invitee's email..."
+                          onChange={email => { updateEmail(email); }}
+                          value={com.body} />
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Post Comment
+          </Button>
+        </Form>
+      </Col>
+    </Row>
+  );
 }
 
 function InviteShow({invite, owner_rights}) {
@@ -46,7 +83,6 @@ function CommentsNew({eve, session}) {
       <Col>
         <Form onSubmit={onSubmit}>
           <Form.Group>
-            <Form.Label>Desc</Form.Label>
             <Form.Control as="textarea"
                           rows={2}
                           placeholder="Type your comment here..."
@@ -161,7 +197,9 @@ function EventShow({eve, session}) {
       <Col sm={4}>
         <InviteListShow
             invites={eve.invites}
-            owner_rights={owner_rights}/>
+            owner_rights={owner_rights}
+            session={session}
+            eve={eve}/>
       </Col>
     </Row>
     </>
