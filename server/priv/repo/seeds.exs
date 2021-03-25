@@ -17,7 +17,7 @@ alias UserStoriesSpa.Events.Event
 defmodule Inject do
 
   def user(name, pass, email) do
-    hash = Argon2.hash_pwd_salt("pass")
+    hash = Argon2.hash_pwd_salt(pass)
     Repo.insert!(%User{name: name, email: email, password_hash: hash})
   end
 end
