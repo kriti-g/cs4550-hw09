@@ -26,9 +26,9 @@ export default function EventsNew() {
     setEvent(e1);
   }
 
-  function updateDate(ev) {
+  function updateDate(date) {
     let e1 = Object.assign({}, eve);
-    e1["date"] = ev.target.value;
+    e1["date"] = date;
     setEvent(e1);
   }
 
@@ -58,7 +58,7 @@ export default function EventsNew() {
             <Form.Label>Desc</Form.Label>
             <Form.Control as="textarea"
                           rows={4}
-                          onChange={updateDesc}
+                          onChange={date => { updateDesc(date); }}
                           value={eve.desc} />
           </Form.Group>
           <Button variant="primary" type="submit">
