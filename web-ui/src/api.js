@@ -79,7 +79,7 @@ export function update_event(eve) {
 export function delete_event(eve) {
   let data = new FormData();
   data.append("id", eve.id);
-  fetch("http://localhost:4000/api/v1/events", {
+  fetch("http://localhost:4000/api/v1/events/"+eve.id, {
     method: 'DELETE',
     // Fetch will handle reading the file object and
     // submitting this as a multipart/form-data request.

@@ -5,8 +5,3 @@ export function inInvites(user_id, eve) {
 export function isOwner(user_id, eve) {
   return user_id === eve.user.id;
 }
-
-export function find_by_id(events, id) {
-  console.log(id);
-  return events.find((eve) => eve.id == id);
-}

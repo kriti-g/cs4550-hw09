@@ -18,11 +18,13 @@ function LoginForm() {
   return (
     <Form onSubmit={on_submit} inline>
       <Form.Control name="email"
-                    type="text"
+                    type="email"
+                    placeholder="Enter email"
                     onChange={(ev) => setEmail(ev.target.value)}
                     value={email} />
       <Form.Control name="password"
                     type="password"
+                    placeholder="Enter password"
                     onChange={(ev) => setPass(ev.target.value)}
                     value={pass} />
       <Button variant="primary" type="submit">

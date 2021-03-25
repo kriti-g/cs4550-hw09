@@ -74,11 +74,13 @@ function EventsNew({session}) {
     <Row>
       <Col>
         <h2>New Event</h2>
+        {error}
         <Form onSubmit={onSubmit}>
           <Form.Group>
             <Form.Label>Name</Form.Label>
             <Form.Control as="textarea"
                           rows={1}
+                          placeholder="Event name"
                           onChange={updateName}
                           value={eve.name} />
           </Form.Group>
@@ -93,6 +95,7 @@ function EventsNew({session}) {
             <Form.Label>Desc</Form.Label>
             <Form.Control as="textarea"
                           rows={4}
+                          placeholder="Event description"
                           onChange={date => { updateDesc(date); }}
                           value={eve.desc} />
           </Form.Group>
@@ -100,7 +103,6 @@ function EventsNew({session}) {
             Save
           </Button>
         </Form>
-        {error}
       </Col>
     </Row>
   );

@@ -1,9 +1,9 @@
-import { Row, Col, Form, Button, Nav, Card, Alert } from 'react-bootstrap';
+import { Row, Col, Form, Button, Nav, NavLink, Card, Alert, ButtonGroup, Button } from 'react-bootstrap';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { fetch_event } from '../api';
+import { useParams, Link } from 'react-router-dom';
+import { fetch_event, delete_event } from '../api';
 import { connect } from 'react-redux';
-import { find_by_id, isOwner } from './Helper';
+import { isOwner } from './Helper';
 
 // function InviteListShow({invites, owner_rights}) {
 //   //let counted = countInvites(invites);
@@ -36,9 +36,33 @@ function CommentListShow({comments, session, owner_rights}){
     </>);
 }
 
+
+function EventControls({eve}) {
+  let editLink = "/events/" + eve.id + "/edit";
+
+  function deleteLink(location) {
+    delete_event(eve);
+    return "/";
+  }
+
+  return (
+  <div>
+    <Link to={editLink}>Edit</Link>
+    <Link to={deleteLink}>Delete</Link>
+  </div>
+  );
+}
+
 function EventShow({eve, session}) {
   let owner_rights = isOwner(session.user_id, eve);
+  let controls = owner_rights ? (<EventControls eve={eve}/>) : (<></>);
   return (
+    <>
+    <Row>
+      <Col>
+        {controls}
+      </Col>
+    </Row>
     <Row>
       <Col>
         <h1>{eve.name}</h1>
@@ -51,6 +75,7 @@ function EventShow({eve, session}) {
             owner_rights={owner_rights}/>
       </Col>
     </Row>
+    </>
   );
 }
 

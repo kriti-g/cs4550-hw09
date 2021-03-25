@@ -52,7 +52,7 @@ function Feed({events, session}) {
       <>
       <Row>
       <Col>
-      <h2>Log in before viewing events.</h2>
+      <h2>Log in to start planning events with all your friends!</h2>
       </Col>
       </Row>
       </>
