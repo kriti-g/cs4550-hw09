@@ -14,6 +14,7 @@ alias UserStoriesSpa.Repo
 alias UserStoriesSpa.Users.User
 alias UserStoriesSpa.Events.Event
 alias UserStoriesSpa.Comments.Comment
+alias UserStoriesSpa.Invites.Invite
 
 defmodule Inject do
 
