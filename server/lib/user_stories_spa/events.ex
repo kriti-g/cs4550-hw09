@@ -21,6 +21,7 @@ defmodule UserStoriesSpa.Events do
     Repo.all(Event)
     |> Repo.preload(:user)
     |> Repo.preload([invites: :user])
+    |> Repo.preload([comments: :user])
   end
 
   @doc """
