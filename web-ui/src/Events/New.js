@@ -1,5 +1,5 @@
 import { Row, Col, Form, Button } from 'react-bootstrap';
-import { DatePicker } from 'react-datepicker';
+import Flatpickr from "react-flatpickr";
 import { useState } from 'react';
 import { create_event } from '../api';
 
@@ -48,9 +48,10 @@ export default function EventsNew() {
           </Form.Group>
           <Form.Group>
             <Form.Label>Date</Form.Label>
-            <DatePicker selected={eve.date}
-                        onChange={updateDate}
-                        showTimeInput/>
+            <Flatpickr
+                  data-enable-time
+                  value={eve.date}
+                  onChange={updateDate}/>
           </Form.Group>
           <Form.Group>
             <Form.Label>Desc</Form.Label>
