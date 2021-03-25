@@ -47,7 +47,6 @@ defmodule UserStoriesSpa.Users do
 
   def authenticate(email, pass) do
     user = Repo.get_by(User, email: email)
-    IO.inspect([:user, user])
     case Argon2.check_pass(user, pass) do
       {:ok, user} -> user
       _ -> nil
