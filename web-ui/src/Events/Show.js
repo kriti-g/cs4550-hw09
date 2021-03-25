@@ -39,17 +39,17 @@ function CommentListShow({comments, session, owner_rights}){
 
 function EventControls({eve}) {
   let editLink = "/events/" + eve.id + "/edit";
+  let deleteLink = "/";
 
-  function deleteLink(location) {
+  function deleteEvent() {
     console.log(["Deleting time, ", eve])
     delete_event(eve);
-    return "/";
   }
 
   return (
   <div>
     <Link to={editLink}>Edit</Link>
-    <Link to={deleteLink}>Delete</Link>
+    <Link to={deleteLink} onClick={() => deleteEvent()}>Delete</Link>
   </div>
   );
 }
@@ -84,7 +84,8 @@ function LoggedInCheck({current_event, session}) {
   if (current_event && session) {
     return (<EventShow eve={current_event} session={session}/>);
   } else {
-    return (<h3>Please log in before viewing events.</h3>);
+    return (<><h3>Event not available.</h3>
+      <p>Please make sure you are logged in and have access.</p></>);
   }
 }
 
