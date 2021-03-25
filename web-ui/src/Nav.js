@@ -66,7 +66,7 @@ function Link({to, children}) {
   );
 }
 
-function AppNav() {
+function AppNav({error}) {
   let error_row = null;
 
   if (error) {
