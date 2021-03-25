@@ -1,7 +1,7 @@
 import { Row, Col, Form, Button, Nav, NavLink, Card, Alert, ButtonGroup } from 'react-bootstrap';
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fetch_event, delete_event } from '../api';
+import { fetch_event, delete_event, fetch_events } from '../api';
 import { connect } from 'react-redux';
 import { isOwner } from './Helper';
 
@@ -44,6 +44,7 @@ function EventControls({eve}) {
   function deleteEvent() {
     console.log(["Deleting time, ", eve])
     delete_event(eve);
+    fetch_events();
   }
 
   return (
