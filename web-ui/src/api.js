@@ -60,14 +60,29 @@ export function create_event(eve) {
   });
 }
 
+export function create_comment(com) {
+  let data = new FormData();
+  data.append("comment[body]", com.body);
+  data.append("comment[event_id]", com.event_id);
+  data.append("comment[user_id]", com.user_id);
+  fetch("http://localhost:4000/api/v1/comments", {
+    method: 'POST',
+    // Fetch will handle reading the file object and
+    // submitting this as a multipart/form-data request.
+    body: data,
+  }).then((resp) => {
+    console.log(resp);
+  });
+}
+
 export function update_event(eve) {
   let data = new FormData();
   data.append("event[name]", eve.name);
   data.append("event[desc]", eve.desc);
   data.append("event[date]", eve.date);
   data.append("id", eve.id);
-  fetch("http://localhost:4000/api/v1/events", {
-    method: 'POST',
+  fetch("http://localhost:4000/api/v1/events/" + eve.id, {
+    method: 'PATCH',
     // Fetch will handle reading the file object and
     // submitting this as a multipart/form-data request.
     body: data,

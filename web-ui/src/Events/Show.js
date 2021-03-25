@@ -10,6 +10,46 @@ import { isOwner } from './Helper';
 //
 // }
 
+function CommentsNew({eve, session}) {
+  let [com, setComment] = useState({});
+
+  function onSubmit(ev) {
+    ev.preventDefault();
+    if (session) {
+      com["user_id"] = session.user_id;
+      com["event_id"] = eve.id;
+      let response = create_comment(com);
+      fetch_event(eve.id);
+    }
+  }
+
+  function updateBody(ev) {
+    let e1 = Object.assign({}, eve);
+    e1["desc"] = ev.target.value;
+    setEvent(e1);
+  }
+
+  return (
+    <Row>
+      <Col>
+        <Form onSubmit={onSubmit}>
+          <Form.Group>
+            <Form.Label>Desc</Form.Label>
+            <Form.Control as="textarea"
+                          rows={2}
+                          placeholder="Type your comment here..."
+                          onChange={body => { updateBody(body); }}
+                          value={com.body} />
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Post Comment
+          </Button>
+        </Form>
+      </Col>
+    </Row>
+  );
+}
+
 function CommentShow({comment, session, owner_rights}) {
   let controls = (<></>);
   if (owner_rights && comment.user.id === session.user_id) {
@@ -27,10 +67,11 @@ function CommentShow({comment, session, owner_rights}) {
     </Card>);
 }
 
-function CommentListShow({comments, session, owner_rights}){
+function CommentListShow({comments, eve, session, owner_rights}){
   let rendered = comments.map((com) => <CommentShow comment={com} session={session} owner_rights={owner_rights}/>);
   return (
     <>
+    <CommentsNew eve={eve} session={session}/>
     <h4>Comments</h4>
     {rendered}
     </>);
@@ -50,6 +91,7 @@ function EventControls({eve}) {
   return (
   <div>
     <Link to={editLink}>Edit</Link>
+     /
     <Link to={deleteLink} onClick={() => deleteEvent()}>Delete</Link>
   </div>
   );
@@ -74,6 +116,7 @@ function EventShow({eve, session}) {
         <CommentListShow
             comments={eve.comments}
             session={session}
+            eve={eve}
             owner_rights={owner_rights}/>
       </Col>
     </Row>

@@ -16,6 +16,7 @@ function EventsNew({session}) {
     ev.preventDefault();
     if (session) {
       eve["user_id"] = session.user_id;
+      eve["date"] = formatDate(tempDate[0]);
       let response = create_event(eve);
       fetch_events(eve);
       history.push("/");
@@ -37,12 +38,7 @@ function EventsNew({session}) {
   }
 
   function updateDate(date) {
-    let e1 = Object.assign({}, eve);
-    console.log(["date1", e1, "eve", eve]);
     setDate(date);
-    e1["date"] = formatDate(date[0]);
-    setEvent(e1);
-    console.log(["date2", e1]);
   }
 
   function formatDate(d) {
@@ -90,7 +86,7 @@ function EventsNew({session}) {
             <Flatpickr
                   data-enable-time
                   value={tempDate}
-                  onChange={updateDate}/>
+                  onChange={date => { updateDate(date); }}/>
           </Form.Group>
           <Form.Group>
             <Form.Label>Desc</Form.Label>
