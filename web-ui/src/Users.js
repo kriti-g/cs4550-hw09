@@ -85,4 +85,8 @@ function Users({users, user_form, dispatch}) {
   );
 }
 
-export default connect(({users, user_form}) => ({users, user_form}))(Users);
+function state2props({users, user_form}) {
+  return { users, user_form };
+}
+
+export default connect(state2props)(Users);
