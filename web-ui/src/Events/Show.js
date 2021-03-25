@@ -62,7 +62,7 @@ function EventPage({events, session}) {
   let {id} = useParams();
   let eve = find_by_id(events, id);
 
-  console.log([id, eve, isOwner]);
+  console.log([id, eve]);
   if (eve && session) {
     return (<EventShow eve={eve} session={session}/>);
   } else {
