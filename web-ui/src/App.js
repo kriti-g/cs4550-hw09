@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react';
+import { Row, Col, Form, Button } from 'react-bootstrap';
+import './App.scss';
+import capitalize from 'lodash/capitalize';
 
 async function fetchUsers() {
   let text = await fetch("http://localhost:4000/api/v1/users", {});
