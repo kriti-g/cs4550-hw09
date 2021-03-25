@@ -27,12 +27,6 @@ function CommentShow({comment, session, owner_rights}) {
     </Card>);
 }
 
-// function Controls(){
-//   return (<></>);
-// }
-
-
-
 function CommentListShow({comments, session, owner_rights}){
   let rendered = comments.map((com) => <CommentShow comment={com} session={session} owner_rights={owner_rights}/>);
   return (
@@ -60,13 +54,7 @@ function EventShow({eve, session}) {
   );
 }
 
-function EventPage({current_event, session}) {
-  let {id} = useParams();
-  let eve = null;
-  if (!(current_event && current_event.id == id)) {
-    fetch_event(id);
-  }
-  console.log([id, current_event]);
+function LoggedInCheck({current_event, session}) {
   if (current_event && session) {
     return (<EventShow eve={current_event} session={session}/>);
   } else {
@@ -74,5 +62,36 @@ function EventPage({current_event, session}) {
   }
 }
 
+function EOL({session, current_event}) {
+  if (!(current_event && current_event.id == id) {
+    fetch_event(id);
+    return (<h4>Loading event...</h4>);
+  } else {
+    return (<LoggedInCheck current_event={current_event} session={session}/>);
+  }
+}
 
-export default connect(({current_event, session}) => ({current_event, session}))(EventPage);
+const EventOrLoading = connect(({session, current_event}) => ({session, current_event}))(EOL);
+
+function EventPage({error}) {
+  let error_row = null;
+
+  if (error) {
+    error_row = (
+      <Row>
+        <Col>
+          <Alert variant="danger">{error}</Alert>
+        </Col>
+      </Row>
+    );
+  }
+
+  return (
+    <div>
+      { error_row }
+      <EventOrLoading/>
+    </div>
+  );
+}
+
+export default connect(({error}) => ({error}))(EventPage);
