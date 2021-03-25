@@ -5,16 +5,16 @@ import { create_event } from '../api';
 import { connect } from 'react-redux';
 import { find_by_id, isOwner } from './Helper';
 
-// function InviteListShow({invites, isOwner}) {
+// function InviteListShow({invites, owner_rights}) {
 //   //let counted = countInvites(invites);
 //
 // }
 
-function CommentShow({comment, session, isOwner}) {
+function CommentShow({comment, session, owner_rights}) {
   let controls = (<></>);
-  if (isOwner && comment.user.id === session.user_id) {
+  if (owner_rights && comment.user.id === session.user_id) {
     controls = (<p>[Delete] [Edit]</p>);
-  } else if (isOwner) {
+  } else if (owner_rights) {
     controls = (<p>[Delete]</p>);
   }
   return (
@@ -31,8 +31,8 @@ function CommentShow({comment, session, isOwner}) {
 //   return (<></>);
 // }
 
-function CommentListShow({comments, session, isOwner}){
-  let rendered = comments.map((com) => <CommentShow comment={com} session={session} isOwner={isOwner}/>);
+function CommentListShow({comments, session, owner_rights}){
+  let rendered = comments.map((com) => <CommentShow comment={com} session={session} owner_rights={owner_rights}/>);
   return (
     <>
     <h4>Comments</h4>
@@ -41,7 +41,7 @@ function CommentListShow({comments, session, isOwner}){
 }
 
 function EventShow({eve, session}) {
-  let isOwner = isOwner(session.user_id, eve);
+  let owner_rights = isOwner(session.user_id, eve);
   return (
     <Row>
       <Col>
@@ -52,7 +52,7 @@ function EventShow({eve, session}) {
         <CommentListShow
             comments={eve.comments}
             session={session}
-            isOwner={isOwner}/>
+            owner_rights={owner_rights}/>
       </Col>
     </Row>
   );
