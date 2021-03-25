@@ -13,6 +13,13 @@ export function fetch_users() {
     }));
 }
 
+export function fetch_events() {
+    api_get("/events").then((data) => store.dispatch({
+        type: 'events/set',
+        data: data,
+    }));
+}
+
 export function load_defaults() {
     fetch_users();
 }

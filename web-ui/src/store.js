@@ -18,6 +18,16 @@ function user_form(state = {}, action) {
   }
 }
 
+function events(state = [], action) {
+  switch (action.type) {
+    case 'events/set':
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+
 function root_reducer(state, action) {
     console.log("root_reducer", state, action);
     let reducer = combineReducers({
