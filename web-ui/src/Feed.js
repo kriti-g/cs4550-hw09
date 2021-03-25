@@ -25,7 +25,7 @@ function LoggedIn({events, session}) {
     if (inInvites(session.user_id, eve) || isOwner(session.user_id, eve)) {
       (<Event eve={eve} key={eve.id} />)
     } else {
-      ()
+      (<></>)
     }
   };
   return (
