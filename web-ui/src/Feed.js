@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 function Event({eve}) {
   return (
     <Col>
+    <Card>
       <Card.Body>
         <Card.Title>{ eve.name }</Card.Title>
         <Card.Subtitle>{eve.date}</Card.Subtitle>
@@ -12,6 +13,7 @@ function Event({eve}) {
           {eve.desc}
         </Card.Text>
       </Card.Body>
+      </Card>
     </Col>
   );
 }
