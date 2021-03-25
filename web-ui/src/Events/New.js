@@ -26,24 +26,24 @@ function EventsNew({session}) {
 
   function updateName(ev) {
     let e1 = Object.assign({}, eve);
-    error = (<></>);
     e1["name"] = ev.target.value;
     setEvent(e1);
+    console.log(["name", e1]);
   }
 
   function updateDesc(ev) {
     let e1 = Object.assign({}, eve);
-    error = (<></>);
     e1["desc"] = ev.target.value;
     setEvent(e1);
+    console.log(["desc", e1]);
   }
 
   function updateDate(date) {
     let e1 = Object.assign({}, eve);
-    error = (<></>);
     setDate(date);
     e1["date"] = formatDate(date[0]);
     setEvent(e1);
+    console.log(["date", e1]);
   }
 
   function formatDate(d) {
