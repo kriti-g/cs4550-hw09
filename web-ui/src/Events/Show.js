@@ -1,7 +1,7 @@
 import { Row, Col, Form, Button, Nav, NavLink, Card, Alert, ButtonGroup } from 'react-bootstrap';
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fetch_event, delete_event, fetch_events } from '../api';
+import { fetch_event, delete_event, fetch_events, create_comment } from '../api';
 import { connect } from 'react-redux';
 import { isOwner } from './Helper';
 
@@ -24,9 +24,9 @@ function CommentsNew({eve, session}) {
   }
 
   function updateBody(ev) {
-    let e1 = Object.assign({}, eve);
-    e1["desc"] = ev.target.value;
-    setEvent(e1);
+    let c1 = Object.assign({}, com);
+    c1["desc"] = ev.target.value;
+    setComment(e1);
   }
 
   return (
