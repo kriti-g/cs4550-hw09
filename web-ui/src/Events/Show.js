@@ -4,10 +4,10 @@ import { useParams } from 'react-router-dom';
 import { create_event } from '../api';
 import { find_by_id, isOwner } from './Helper';
 
-function InviteListShow({invites, isOwner}) {
-  //let counted = countInvites(invites);
-
-}
+// function InviteListShow({invites, isOwner}) {
+//   //let counted = countInvites(invites);
+//
+// }
 
 function CommentShow({comment, session, isOwner}) {
   let controls = (<></>);
@@ -27,9 +27,9 @@ function CommentShow({comment, session, isOwner}) {
   );
 }
 
-function Controls(){
-  return (<></>);
-}
+// function Controls(){
+//   return (<></>);
+// }
 
 function CommentListShow({comments, session, isOwner}){
   let rendered = comments.map((com) => {
@@ -40,11 +40,13 @@ function CommentListShow({comments, session, isOwner}){
     <h4>Comments</h4>
     {rendered}
     </>
-  )
+  );
 }
 
 function EventShow({eve, session}) {
-  var isOwner = isOwner(session.user_id, eve);
+
+  let isOwner = isOwner(session.user_id, eve);
+
   return (
     <Row>
       <Col>
