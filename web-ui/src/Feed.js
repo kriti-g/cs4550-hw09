@@ -6,7 +6,7 @@ function Event({eve}) {
     <Col>
       <Card>
         <Card.Title>{ eve.name }</Card.Title>
-        <Card.Subtitle>{eve.date}</Card.Subtitle
+        <Card.Subtitle>{eve.date}</Card.Subtitle>
         <Card.Text>
           { eve.user.name}'s Event <br />
           {eve.desc}
