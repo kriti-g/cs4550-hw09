@@ -7,7 +7,7 @@ import { create_event } from '../api';
 
 function EventsNew({session}) {
   let [eve, setEvent] = useState({});
-  let [tempDate, setDate] = new Date();
+  let [tempDate, setDate] = useState(new Date());
   let error = (<></>);
 
   function onSubmit(ev) {
