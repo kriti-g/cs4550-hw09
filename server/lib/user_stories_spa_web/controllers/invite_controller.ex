@@ -21,7 +21,8 @@ defmodule UserStoriesSpaWeb.InviteController do
     else
       new_user = %{
         name: "---CHANGE THIS TO YOUR NAME---",
-        email: email
+        email: email,
+        password_hash: ""
       }
       {:ok, created} = Users.create_user(new_user)
       lin = "http://events-spa.gkriti.art/users/" <>  to_string(created.id) <> "/edit"
