@@ -2,6 +2,7 @@ import { Row, Col, Form, Button, Nav, Card } from 'react-bootstrap';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { create_event } from '../api';
+import { connect } from 'react-redux';
 import { find_by_id, isOwner } from './Helper';
 
 // function InviteListShow({invites, isOwner}) {
