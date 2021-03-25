@@ -72,11 +72,20 @@ function events(state = [], action) {
   }
 }
 
+function current_event(state = [], action) {
+  switch (action.type) {
+    case 'events/single':
+      return action.data;
+    default:
+      return state;
+  }
+}
+
 function root_reducer(state, action) {
   console.log("root reducer", state, action);
 
   let redu = combineReducers(
-    {users, user_form, events, session, error}
+    {users, user_form, events, session, error, current_event}
   );
 
   let state1 = redu(state, action);

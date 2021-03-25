@@ -37,6 +37,13 @@ export function fetch_events() {
     }));
 }
 
+export function fetch_event(id) {
+    api_get("/events/"+id).then((data) => store.dispatch({
+        type: 'events/single',
+        data: data,
+    }));
+}
+
 export function create_event(eve) {
   let data = new FormData();
   data.append("event[name]", eve.name);
@@ -61,6 +68,19 @@ export function update_event(eve) {
   data.append("id", eve.id);
   fetch("http://localhost:4000/api/v1/events", {
     method: 'POST',
+    // Fetch will handle reading the file object and
+    // submitting this as a multipart/form-data request.
+    body: data,
+  }).then((resp) => {
+    console.log(resp);
+  });
+}
+
+export function delete_event(eve) {
+  let data = new FormData();
+  data.append("id", eve.id);
+  fetch("http://localhost:4000/api/v1/events", {
+    method: 'DELETE',
     // Fetch will handle reading the file object and
     // submitting this as a multipart/form-data request.
     body: data,

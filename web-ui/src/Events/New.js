@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { create_event } from '../api';
 
 function EventsNew({session}) {
-  let [eve, setEvent] = useState({name: "New Event", desc: "Standard desc", date:"2021-03-10T09:17:00.000Z"});
+  let [eve, setEvent] = useState({});
   let [tempDate, setDate] = useState(new Date());
   let error = (<></>);
 

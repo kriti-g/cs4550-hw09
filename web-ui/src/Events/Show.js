@@ -1,7 +1,7 @@
 import { Row, Col, Form, Button, Nav, Card } from 'react-bootstrap';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { create_event } from '../api';
+import { fetch_event } from '../api';
 import { connect } from 'react-redux';
 import { find_by_id, isOwner } from './Helper';
 
@@ -60,16 +60,19 @@ function EventShow({eve, session}) {
   );
 }
 
-function EventPage({events, session}) {
+function EventPage({current_event, session}) {
   let {id} = useParams();
-  let eve = find_by_id(events, id);
-
-  console.log([id, eve]);
-  if (eve && session) {
-    return (<EventShow eve={eve} session={session}/>);
+  let eve = null;
+  if (!(current_event && current_event.id == id)) {
+    fetch_event(id);
+  }
+  console.log([id, current_event]);
+  if (current_event && session) {
+    return (<EventShow eve={current_event} session={session}/>);
   } else {
     return (<h3>Please log in before viewing events.</h3>);
   }
 }
 
-export default connect(({events, session}) => ({events, session}))(EventPage);
+
+export default connect(({current_event, session}) => ({current_event, session}))(EventPage);
