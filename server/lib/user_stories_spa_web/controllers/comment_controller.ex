@@ -12,7 +12,8 @@ defmodule UserStoriesSpaWeb.CommentController do
   end
 
   def create(conn, %{"comment" => comment_params}) do
-    with {:ok, %Comment{} = comment} <- Comments.create_comment(comment_params) do
+    with {:ok, %Comment{} = comm} <- Comments.create_comment(comment_params) do
+      comment = Comments.load_user(comm)
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.comment_path(conn, :show, comment))
@@ -21,7 +22,8 @@ defmodule UserStoriesSpaWeb.CommentController do
   end
 
   def show(conn, %{"id" => id}) do
-    comment = Comments.get_comment!(id)
+    comm = Comments.get_comment!(id)
+    comment = Comments.load_user(comm)
     render(conn, "show.json", comment: comment)
   end
 

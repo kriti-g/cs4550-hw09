@@ -37,6 +37,10 @@ defmodule UserStoriesSpa.Comments do
   """
   def get_comment!(id), do: Repo.get!(Comment, id)
 
+  def load_user(%Comment{} = comment) do
+    Repo.preload(comment, :user)
+  end
+
   @doc """
   Creates a comment.
 
