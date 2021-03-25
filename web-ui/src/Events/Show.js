@@ -1,4 +1,4 @@
-import { Row, Col, Form, Button, Nav, NavLink, Card, Alert, ButtonGroup, Button } from 'react-bootstrap';
+import { Row, Col, Form, Button, Nav, NavLink, Card, Alert, ButtonGroup } from 'react-bootstrap';
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetch_event, delete_event } from '../api';
@@ -41,6 +41,7 @@ function EventControls({eve}) {
   let editLink = "/events/" + eve.id + "/edit";
 
   function deleteLink(location) {
+    console.log(["Deleting time, ", eve])
     delete_event(eve);
     return "/";
   }
