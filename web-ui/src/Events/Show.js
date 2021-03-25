@@ -40,7 +40,8 @@ function CommentListShow({comments, session, isOwner}){
     </>);
 }
 
-function EventShow({eve, session, isOwner}) {
+function EventShow({eve, session}) {
+  let isOwner = isOwner(session.user_id, eve);
   return (
     <Row>
       <Col>
@@ -60,10 +61,10 @@ function EventShow({eve, session, isOwner}) {
 function EventPage({events, session}) {
   let {id} = useParams();
   let eve = find_by_id(events, id);
-  let isOwner = isOwner(session.user_id, eve);
+
   console.log([id, eve, isOwner]);
   if (eve && session) {
-    return (<EventShow eve={eve} session={session} isOwner={isOwner}/>);
+    return (<EventShow eve={eve} session={session}/>);
   } else {
     return (<h3>Please log in before viewing events.</h3>);
   }
