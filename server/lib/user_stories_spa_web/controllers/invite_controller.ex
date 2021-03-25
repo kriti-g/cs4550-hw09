@@ -3,6 +3,7 @@ defmodule UserStoriesSpaWeb.InviteController do
 
   alias UserStoriesSpa.Invites
   alias UserStoriesSpa.Invites.Invite
+  alias UserStoriesSpa.Users
 
   action_fallback UserStoriesSpaWeb.FallbackController
 
@@ -12,7 +13,21 @@ defmodule UserStoriesSpaWeb.InviteController do
   end
 
   def create(conn, %{"invite" => invite_params}) do
-    with {:ok, %Invite{} = invite} <- Invites.create_invite(invite_params) do
+    email = invite_params["user_email"]
+    user = Users.get_user_by_email(email)
+    [link, new_invite_params] = if user do
+      lin = "http://events-spa.gkriti.art/events/" <> to_string(invite_params["event_id"])
+      [lin, Map.put(invite_params, "user_id", user.id)]
+    else
+      new_user = %{
+        name: "---CHANGE THIS TO YOUR NAME---",
+        email: email
+      }
+      {:ok, created} = Users.create_user(new_user)
+      lin = "http://events-spa.gkriti.art/users/" <>  to_string(created.id) <> "/edit"
+      [lin, Map.put(invite_params, "user_id", created.id)]
+    end
+    with {:ok, %Invite{} = invite} <- Invites.create_invite(new_invite_params) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.invite_path(conn, :show, invite))
