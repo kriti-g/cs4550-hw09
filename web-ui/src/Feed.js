@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 function Event({eve}) {
   return (
     <Col>
-      <Card>
+      <Card.Body>
         <Card.Title>{ eve.name }</Card.Title>
         <Card.Subtitle>{eve.date}</Card.Subtitle>
         <Card.Text>
           { eve.user.name}'s Event <br />
           {eve.desc}
         </Card.Text>
-      </Card>
+      </Card.Body>
     </Col>
   );
 }
