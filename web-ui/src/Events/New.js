@@ -9,12 +9,12 @@ import { create_event, fetch_events } from '../api';
 function EventsNew({session}) {
   let [eve, setEvent] = useState({});
   let [tempDate, setDate] = useState(new Date());
+  let history = useHistory();
   let error = (<></>);
 
   function onSubmit(ev) {
     ev.preventDefault();
     if (session) {
-      let history = useHistory();
       eve["user_id"] = session.user_id;
       let response = create_event(eve);
       fetch_events(eve);
