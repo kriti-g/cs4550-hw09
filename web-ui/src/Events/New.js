@@ -11,6 +11,7 @@ export default function EventsNew() {
     ev.preventDefault();
     console.log(ev);
     console.log(eve);
+    eve["date"] = JSON.stringify(eve["date"][0]);
     create_event(eve);
   }
 
@@ -30,7 +31,7 @@ export default function EventsNew() {
     let e1 = Object.assign({}, eve);
     e1["date"] = date;
     setEvent(e1);
-    console.log(e1);
+    console.log(JSON.stringify(e1["date"][0]));
   }
 
   // <DatePicker selected={eve.date}
