@@ -45,7 +45,7 @@ function CommentListShow({comments, session, isOwner}){
 
 function EventShow({eve, session}) {
 
-  let isOwner = isOwner(session.user_id, eve);
+  let is_owner = isOwner(session.user_id, eve);
 
   return (
     <Row>
@@ -57,7 +57,7 @@ function EventShow({eve, session}) {
         <CommentListShow
             comments={eve.comments}
             session={session}
-            isOwner={isOwner}/>
+            isOwner={is_owner}/>
       </Col>
     </Row>
   );
