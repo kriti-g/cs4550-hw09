@@ -3,7 +3,8 @@ defmodule UserStoriesSpaWeb.SessionController do
 
   def create(conn, %{"email" => email, "password" => password}) do
     user = UserStoriesSpa.Users.authenticate(email, password)
-
+    IO.inspect([:user, user])
+    
     if user do
       sess = %{
         user_id: user.id,
