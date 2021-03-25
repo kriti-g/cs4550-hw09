@@ -31,7 +31,7 @@ function events(state = [], action) {
 function root_reducer(state, action) {
     console.log("root_reducer", state, action);
     let reducer = combineReducers({
-        users, user_form
+        users, user_form, events
     });
     return reducer(state, action);
 }
