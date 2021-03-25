@@ -23,9 +23,10 @@ function Event({eve}) {
 function LoggedIn({events, session}) {
   let cards = events.map((eve) => {
     if (inInvites(session.user_id, eve) || isOwner(session.user_id, eve)) {
-      (<Event eve={eve} key={eve.id} />)
+      console.log("reached")
+      return (<Event eve={eve} key={eve.id} />);
     } else {
-      (<></>)
+      return (<></>);
     }
   });
   return (
