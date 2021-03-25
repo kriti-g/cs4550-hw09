@@ -7,13 +7,11 @@ import { create_event } from '../api';
 
 function EventsNew({session}) {
   let [eve, setEvent] = useState({});
+  let [tempDate, setDate] = new Date();
   let error = (<></>);
 
   function onSubmit(ev) {
     ev.preventDefault();
-    let e1 = Object.assign({}, eve);
-    e1["date"] = JSON.stringify(e1["date"][0]);
-    setEvent(e1);
     if (session) {
       eve["user_id"] = session.user_id;
       console.log(["session", session, "event", eve])
@@ -40,7 +38,8 @@ function EventsNew({session}) {
   function updateDate(date) {
     let e1 = Object.assign({}, eve);
     error = (<></>);
-    e1["date"] = date;
+    setDate(date);
+    e1["date"] = JSON.stringify(date);
     setEvent(e1);
   }
 
@@ -55,7 +54,8 @@ function EventsNew({session}) {
         <Form onSubmit={onSubmit}>
           <Form.Group>
             <Form.Label>Name</Form.Label>
-            <Form.Control type="text"
+            <Form.Control as="textarea"
+                          rows={1}
                           onChange={updateName}
                           value={eve.name} />
           </Form.Group>
@@ -63,7 +63,7 @@ function EventsNew({session}) {
             <Form.Label>Date: </Form.Label>
             <Flatpickr
                   data-enable-time
-                  value={eve.date}
+                  value={tempDate}
                   onChange={updateDate}/>
           </Form.Group>
           <Form.Group>
