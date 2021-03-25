@@ -44,7 +44,7 @@ function CommentListShow({comments, session, isOwner}){
 }
 
 function EventShow({eve, session}) {
-  let isOwner = isOwner(session.user_id, eve);
+  var isOwner = isOwner(session.user_id, eve);
   return (
     <Row>
       <Col>
