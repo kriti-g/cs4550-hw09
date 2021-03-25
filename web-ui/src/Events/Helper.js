@@ -7,6 +7,5 @@ export function isOwner(user_id, eve) {
 }
 
 export function find_by_id(events, id) {
-  console.log([eve.id, id, eve.id === id]);
-  return events.find(eve => eve.id === id);
+  return events.find((eve) => eve.id === id);
 }
