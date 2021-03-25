@@ -56,7 +56,7 @@ function CommentControls({comment}) {
 
   function deleteComment() {
     // delete the event, then update the list that the app works from.
-    delete_comment(eve);
+    delete_comment(comment);
     fetch_events();
   }
 
@@ -64,7 +64,7 @@ function CommentControls({comment}) {
   <div>
     <Link to={editLink}>Edit</Link>
      /
-    <Link to={deleteLink} onClick={() => deleteEvent()}>Delete</Link>
+    <Link to={deleteLink} onClick={() => deleteComment()}>Delete</Link>
   </div>
   );
 }

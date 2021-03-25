@@ -14,6 +14,7 @@ defmodule UserStoriesSpaWeb.CommentView do
   def render("comment.json", %{comment: comment}) do
     %{id: comment.id,
       body: comment.body,
-      user: render_one(comment.user, UserView, "user.json")}
+      user: render_one(comment.user, UserView, "user.json"),
+      event_id: comment.event_id }
   end
 end
