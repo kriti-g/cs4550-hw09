@@ -75,6 +75,19 @@ export function create_comment(com) {
   });
 }
 
+export function delete_comment(com) {
+  let data = new FormData();
+  data.append("id", com.id);
+  fetch("http://localhost:4000/api/v1/comments/"+com.id, {
+    method: 'DELETE',
+    // Fetch will handle reading the file object and
+    // submitting this as a multipart/form-data request.
+    body: data,
+  }).then((resp) => {
+    console.log(resp);
+  });
+}
+
 export function update_event(eve) {
   let data = new FormData();
   data.append("event[name]", eve.name);

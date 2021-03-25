@@ -19,6 +19,7 @@ defmodule UserStoriesSpa.Invites do
   """
   def list_invites do
     Repo.all(Invite)
+    |> Repo.preload(:user)
   end
 
   @doc """
@@ -35,7 +36,14 @@ defmodule UserStoriesSpa.Invites do
       ** (Ecto.NoResultsError)
 
   """
-  def get_invite!(id), do: Repo.get!(Invite, id)
+  def get_invite!(id) do
+    Repo.get!(Invite, id)
+    |> Repo.preload(:user)
+  end
+
+  def load_user(%Invite{} = invite) do
+    Repo.preload(invite, :user)
+  end
 
   @doc """
   Creates a invite.

@@ -50,6 +50,25 @@ function CommentsNew({eve, session}) {
   );
 }
 
+function CommentControls({comment}) {
+  let editLink = "/comments/" + comment.id + "/edit";
+  let deleteLink = "/events/" + comment.event_id;
+
+  function deleteComment() {
+    // delete the event, then update the list that the app works from.
+    delete_comment(eve);
+    fetch_events();
+  }
+
+  return (
+  <div>
+    <Link to={editLink}>Edit</Link>
+     /
+    <Link to={deleteLink} onClick={() => deleteEvent()}>Delete</Link>
+  </div>
+  );
+}
+
 function CommentShow({comment, session, owner_rights}) {
   let controls = (<></>);
   if (owner_rights && comment.user.id === session.user_id) {
