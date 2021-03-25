@@ -50,7 +50,7 @@ function CommentsNew({eve, session}) {
   );
 }
 
-function CommentControls({comment}) {
+function CommentControls({comment,  session, owner_rights}) {
   let editLink = "/comments/" + comment.id + "/edit";
   let deleteLink = "/events/" + comment.event_id;
 
@@ -60,28 +60,31 @@ function CommentControls({comment}) {
     fetch_events();
   }
 
-  return (
-  <div>
-    <Link to={editLink}>Edit</Link>
-     /
-    <Link to={deleteLink} onClick={() => deleteComment()}>Delete</Link>
-  </div>
-  );
+  if (owner_rights && comment.user.id === session.user_id) {
+    return (
+    <div>
+      <Link to={editLink}>Edit</Link>
+       /
+      <Link to={deleteLink} onClick={() => deleteComment()}>Delete</Link>
+    </div>
+    );
+  } else if (owner_rights) {
+    return (
+    <div>
+      <Link to={deleteLink} onClick={() => deleteComment()}>Delete</Link>
+    </div>
+    );
+  }
 }
 
 function CommentShow({comment, session, owner_rights}) {
-  let controls = (<></>);
-  if (owner_rights && comment.user.id === session.user_id) {
-    controls = (<p>[Delete] [Edit]</p>);
-  } else if (owner_rights) {
-    controls = (<p>[Delete]</p>);
-  }
+
   return (
     <Card>
       <Card.Body>
         <p>Posted by {comment.user.name}</p>
         <Card.Text>{comment.body}</Card.Text>
-        {controls}
+        <CommentControls comment={comment} session={session} owner_rights={owner_rights}/>
       </Card.Body>
     </Card>);
 }
