@@ -12,6 +12,7 @@ function EventsNew({session}) {
   function onSubmit(ev) {
     ev.preventDefault();
     eve["date"] = JSON.stringify(eve["date"][0]);
+    console.log(["session", session])
     if (session) {
       eve["user_id"] = session.user_id;
       create_event(eve);
