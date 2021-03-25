@@ -7,6 +7,7 @@ import Feed from './Feed';
 import UsersList from './Users/List';
 import UsersNew from './Users/New';
 import EventNew from './Events/New';
+//import EventPage from './Events/Show';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/" exact>
           <Feed />
         </Route>
+        <Route path="/event/:id" component={EventPage}/>
         <Route path="/users" exact>
           <UsersList />
         </Route>

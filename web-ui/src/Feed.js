@@ -1,6 +1,7 @@
 import { Row, Col, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { inInvites, isOwner } from './Events/Helper';
 
 function Event({eve}) {
   return (
@@ -19,14 +20,19 @@ function Event({eve}) {
   );
 }
 
-
-function Feed({events, session}) {
-  let cards = events.map((eve) => <Event eve={eve} key={eve.id} />);
+function LoggedIn({events, session}) {
+  let cards = events.map((eve) => {
+    if (inInvites(session.user_id, eve) || isOwner(session.user_id, eve)) {
+      (<Event eve={eve} key={eve.id} />)
+    } else {
+      ()
+    }
+  };
   return (
     <>
     <Row>
     <Col>
-    <h2>Your Events</h2>
+    <h2>{session.name}'s Events</h2>
     <Link to="/events/new">New Event</Link>
     </Col>
     </Row>
@@ -35,6 +41,23 @@ function Feed({events, session}) {
     </Row>
     </>
   );
+}
+
+
+function Feed({events, session}) {
+  if (session) {
+    return (<LoggedIn session={session} events={events}/>)
+  } else {
+    return (
+      <>
+      <Row>
+      <Col>
+      <h2>Log in before viewing events.</h2>
+      </Col>
+      </Row>
+      </>
+    );
+  }
 }
 
 export default connect(({events, session}) => ({events, session}))(Feed);
