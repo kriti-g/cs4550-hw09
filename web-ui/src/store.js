@@ -18,6 +18,7 @@ function user_form(state = {}, action) {
   }
 }
 
+
 function save_session(sess) {
   let session = Object.assign({}, sess, {time: Date.now()});
   localStorage.setItem("session", JSON.stringify(session));
@@ -39,14 +40,26 @@ function load_session() {
   }
 }
 
-function session(state = null, action) {
+function session(state = load_session(), action) {
   switch (action.type) {
-    case 'session/set':
-      return action.data;
-    case 'session/clear':
-      return null;
-    default:
-      return state;
+  case 'session/set':
+    save_session(action.data);
+    return action.data;
+  case 'session/clear':
+    return null;
+  default:
+    return state;
+  }
+}
+
+function error(state = null, action) {
+  switch (action.type) {
+  case 'error/set':
+    return action.data;
+  case 'session/set':
+    return null;
+  default:
+    return state;
   }
 }
 
@@ -59,23 +72,17 @@ function events(state = [], action) {
   }
 }
 
-function error(state = null, action) {
-  switch (action.type) {
-    case 'session/set':
-      return null;
-    case 'error/set':
-      return action.data;
-    default:
-      return state;
-  }
-}
-
 function root_reducer(state, action) {
-    console.log("root_reducer", state, action);
-    let reducer = combineReducers({
-        users, user_form, events, session, error
-    });
-    return reducer(state, action);
+  console.log("root reducer", state, action);
+
+  let redu = combineReducers(
+    {users, user_form, events, session, error}
+  );
+
+  let state1 = redu(state, action);
+  console.log("state1", state1);
+
+  return state1;
 }
 
 let store = createStore(root_reducer);
