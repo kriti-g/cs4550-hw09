@@ -7,7 +7,7 @@ import Feed from './Feed';
 import UsersList from './Users/List';
 import UsersNew from './Users/New';
 import EventNew from './Events/New';
-//import EventPage from './Events/Show';
+import EventPage from './Events/Show';
 
 function App() {
   return (
