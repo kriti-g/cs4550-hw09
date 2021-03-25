@@ -8,8 +8,10 @@ import { isOwner, countInvites } from './Helper';
 function InviteListShow({invites, owner_rights, session, eve}) {
     let counted = countInvites(invites);
     let rendered = invites.map((inv) => <InviteShow key={inv.id} invite={inv} owner_rights={owner_rights}/>);
+    let new_invite = owner_rights ? (<NewInvite eve={eve} session={session}/>) : (<></>)
     return (
       <>
+      {new_invite}
       <h4>Invites</h4>
       <p>{counted}</p>
       {rendered}
@@ -42,7 +44,7 @@ function NewInvite({eve, session}) {
             <Form.Control type="email"
                           placeholder="Type a new invitee's email..."
                           onChange={email => { updateEmail(email); }}
-                          value={com.body} />
+                          value={inv.user_email} />
           </Form.Group>
           <Button variant="primary" type="submit">
             Post Comment
