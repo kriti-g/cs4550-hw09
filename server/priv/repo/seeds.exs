@@ -13,6 +13,7 @@
 alias UserStoriesSpa.Repo
 alias UserStoriesSpa.Users.User
 alias UserStoriesSpa.Events.Event
+alias UserStoriesSpa.Users.Comment
 
 defmodule Inject do
 
@@ -32,6 +33,13 @@ e1 = %Event{
   date: ~N[2022-01-01 23:00:00]
 }
 Repo.insert!(e1)
+
+c1 = %Comment{
+  user_id: alice.id,
+  event_id: e1.id,
+  body: "alice left a comment"
+}
+Repo.insert!(c1)
 
 e2 = %Event{
   user_id: bob.id,
