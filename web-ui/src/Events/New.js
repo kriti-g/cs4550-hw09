@@ -1,9 +1,10 @@
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import "flatpickr/dist/themes/material_green.css";
+import { useHistory } from "react-router-dom";
 import Flatpickr from "react-flatpickr";
 import { useState } from 'react';
-import { create_event } from '../api';
+import { create_event, fetch_events } from '../api';
 
 function EventsNew({session}) {
   let [eve, setEvent] = useState({});
@@ -13,9 +14,11 @@ function EventsNew({session}) {
   function onSubmit(ev) {
     ev.preventDefault();
     if (session) {
+      let history = useHistory();
       eve["user_id"] = session.user_id;
-      console.log(["session", session, "event", eve])
-      create_event(eve);
+      let response = create_event(eve);
+      fetch_events(eve);
+      history.push("/");
     } else {
       error = (<p>Login to do this.</p>)
     }

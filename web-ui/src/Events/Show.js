@@ -42,7 +42,7 @@ function EventControls({eve}) {
   let deleteLink = "/";
 
   function deleteEvent() {
-    console.log(["Deleting time, ", eve])
+    // delete the event, then update the list that the app works from.
     delete_event(eve);
     fetch_events();
   }
