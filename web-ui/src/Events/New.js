@@ -14,9 +14,9 @@ function EventsNew({session}) {
     let e1 = Object.assign({}, eve);
     e1["date"] = JSON.stringify(e1["date"][0]);
     setEvent(e1);
-    console.log(["session", session])
     if (session) {
       eve["user_id"] = session.user_id;
+      console.log(["session", session, "event", eve])
       create_event(eve);
     } else {
       error = (<p>Login to do this.</p>)

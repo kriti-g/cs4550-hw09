@@ -42,6 +42,7 @@ export function create_event(eve) {
   data.append("event[name]", eve.name);
   data.append("event[desc]", eve.desc);
   data.append("event[date]", eve.date);
+  data.append("event[user_id]", eve.user_id);
   fetch("http://localhost:4000/api/v1/events", {
     method: 'POST',
     // Fetch will handle reading the file object and
