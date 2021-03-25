@@ -7,7 +7,7 @@ export function isOwner(user_id, eve) {
 }
 
 export function countInvites(invites) {
-  return invites.reduce((responses, invite) => {
+  let responses =  invites.reduce((responses, invite) => {
     let [yes, maybe, no, pending] = responses
     switch(invite.response) {
       case "Yes": return [yes+1, maybe, no, pending];
@@ -15,5 +15,6 @@ export function countInvites(invites) {
       case "No": return [yes, maybe, no+1, pending];
       case "Pending": return [yes, maybe, no, pending+1];
     }
-  })
+  }, [0, 0, 0, 0]);
+  return yes + " yes, " + maybe + " maybe, " + no + " no, " + pending + " pending."
 }

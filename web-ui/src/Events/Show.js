@@ -7,14 +7,13 @@ import { isOwner, countInvites } from './Helper';
 
 function InviteListShow({invites, owner_rights}) {
     let counted = countInvites(invites);
-    let rendered = invites.map((com) => <CommentShow comment={com} session={session} owner_rights={owner_rights}/>);
+    let rendered = invites.map((inv) => <InviteShow invite={inv} owner_rights={owner_rights}/>);
     return (
       <>
-      <CommentsNew eve={eve} session={session}/>
-      <h4>Comments</h4>
+      <h4>Invites</h4>
+      <p>{counted}</p>
       {rendered}
       </>);
-
 }
 
 function InviteShow({invite, owner_rights}) {
@@ -142,7 +141,7 @@ function EventShow({eve, session}) {
       </Col>
     </Row>
     <Row>
-      <Col>
+      <Col sm={8}>
         <h1>{eve.name}</h1>
         <h6>{eve.date}</h6>
         <h6>{eve.user.name}</h6>
@@ -151,6 +150,11 @@ function EventShow({eve, session}) {
             comments={eve.comments}
             session={session}
             eve={eve}
+            owner_rights={owner_rights}/>
+      </Col>
+      <Col sm={4}>
+        <InviteListShow
+            invites={eve.invites}
             owner_rights={owner_rights}/>
       </Col>
     </Row>
