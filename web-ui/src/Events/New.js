@@ -4,34 +4,40 @@ import Flatpickr from "react-flatpickr";
 import { useState } from 'react';
 import { create_event } from '../api';
 
-export default function EventsNew() {
+function EventsNew({session}) {
   let [eve, setEvent] = useState({});
+  let error = (<></>);
 
   function onSubmit(ev) {
     ev.preventDefault();
-    console.log(ev);
-    console.log(eve);
     eve["date"] = JSON.stringify(eve["date"][0]);
-    create_event(eve);
+    if (session) {
+      eve["user_id"] = session.user_id;
+      create_event(eve);
+    } else {
+      error = (<p>Login to do this.</p>)
+    }
   }
 
   function updateName(ev) {
     let e1 = Object.assign({}, eve);
+    error = (<></>);
     e1["name"] = ev.target.value;
     setEvent(e1);
   }
 
   function updateDesc(ev) {
     let e1 = Object.assign({}, eve);
+    error = (<></>);
     e1["desc"] = ev.target.value;
     setEvent(e1);
   }
 
   function updateDate(date) {
     let e1 = Object.assign({}, eve);
+    error = (<></>);
     e1["date"] = date;
     setEvent(e1);
-    console.log(JSON.stringify(e1["date"][0]));
   }
 
   // <DatePicker selected={eve.date}
@@ -67,7 +73,10 @@ export default function EventsNew() {
             Save
           </Button>
         </Form>
+        {error}
       </Col>
     </Row>
   );
 }
+
+export default connect(({session}) => ({session}))(EventsNew);
