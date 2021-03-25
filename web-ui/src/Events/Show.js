@@ -63,7 +63,7 @@ function LoggedInCheck({current_event, session}) {
 }
 
 function EOL({session, current_event}) {
-  if (!(current_event && current_event.id == id) {
+  if (!(current_event && current_event.id == id)) {
     fetch_event(id);
     return (<h4>Loading event...</h4>);
   } else {
