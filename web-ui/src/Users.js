@@ -34,7 +34,7 @@ function UserForm({user, setUser}) {
   );
 }
 
-export default function Users({users}) {
+function Users({users, user_form, dispatch}) {
   function setUser(user) {
     dispatch({type: 'user_form/set', data: user});
   }
