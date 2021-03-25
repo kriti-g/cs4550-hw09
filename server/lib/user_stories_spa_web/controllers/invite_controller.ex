@@ -22,7 +22,7 @@ defmodule UserStoriesSpaWeb.InviteController do
       new_user = %{
         name: "---CHANGE THIS TO YOUR NAME---",
         email: email,
-        password_hash: ""
+        password_hash: "nohash"
       }
       {:ok, created} = Users.create_user_artificial(new_user)
       lin = "http://events-spa.gkriti.art/users/" <>  to_string(created.id) <> "/edit"
