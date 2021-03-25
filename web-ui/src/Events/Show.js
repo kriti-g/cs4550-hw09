@@ -26,7 +26,7 @@ function CommentsNew({eve, session}) {
   function updateBody(ev) {
     let c1 = Object.assign({}, com);
     c1["desc"] = ev.target.value;
-    setComment(e1);
+    setComment(c1);
   }
 
   return (
