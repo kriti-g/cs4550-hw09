@@ -3,5 +3,6 @@ export function inInvites(user_id, eve) {
 }
 
 export function isOwner(user_id, eve) {
+  console.log(["is owner", user_id, eve.user.id])
   return user_id === eve.user.id;
 }
