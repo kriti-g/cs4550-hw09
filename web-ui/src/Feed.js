@@ -1,4 +1,5 @@
 import { Row, Col, Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 function Event({eve}) {
