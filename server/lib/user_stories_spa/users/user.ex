@@ -10,7 +10,7 @@ defmodule UserStoriesSpa.Users.User do
     has_many :events, UserStoriesSpa.Events.Event, on_delete: :delete_all
     has_many :comments, UserStoriesSpa.Comments.Comment, on_delete: :delete_all
     has_many :invites, UserStoriesSpa.Invites.Invite, on_delete: :delete_all
-    
+
     timestamps()
   end
 
@@ -20,6 +20,8 @@ defmodule UserStoriesSpa.Users.User do
     |> cast(attrs, [:name, :email])
     |> add_password_hash(attrs["password"])
     |> validate_required([:name, :email, :password_hash])
+    |> validate_format(:email, ~r/@/)
+    |> unique_constraint(:email)
   end
 
   def add_password_hash(cset, nil) do

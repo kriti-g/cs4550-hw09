@@ -20,4 +20,8 @@ defmodule UserStoriesSpa.Events.Event do
     |> cast(attrs, [:name, :desc, :date, :user_id])
     |> validate_required([:name, :desc, :date, :user_id])
   end
+
+  def adjustDate(datestring) do
+
+  end
 end
