@@ -14,7 +14,8 @@ defmodule UserStoriesSpaWeb.InviteView do
   def render("invite.json", %{invite: invite}) do
     %{id: invite.id,
       response: invite.response,
-      user: render_one(invite.user, UserView, "user.json")
+      user: render_one(invite.user, UserView, "user.json"),
+      event_id: invite.event_id
     }
   end
 end
