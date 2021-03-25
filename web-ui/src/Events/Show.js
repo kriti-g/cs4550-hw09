@@ -12,9 +12,9 @@ import { find_by_id, isOwner } from './Helper';
 function CommentShow({comment, session, isOwner}) {
   let controls = (<></>);
   if (isOwner && comment.user.id === session.user_id) {
-    (<p>[Delete] [Edit]</p>);
+    controls = (<p>[Delete] [Edit]</p>);
   } else if (isOwner) {
-    (<p>[Delete]</p>);
+    controls = (<p>[Delete]</p>);
   }
   return (
     <Card>
@@ -23,8 +23,7 @@ function CommentShow({comment, session, isOwner}) {
         <Card.Text>{comment.body}</Card.Text>
         {controls}
       </Card.Body>
-    </Card>
-  );
+    </Card>);
 }
 
 // function Controls(){
@@ -39,27 +38,9 @@ function CommentListShow({comments, session, isOwner}){
     <>
     <h4>Comments</h4>
     {rendered}
-    </>
-  );
+    </>);
 }
 
-function EventShow({eve, session, isOwner}) {
-
-  return (
-    <Row>
-      <Col>
-        <h1>{eve.name}</h1>
-        <h6>{eve.date}</h6>
-        <h6>{eve.user.name}</h6>
-        <p>{eve.desc}</p>
-        <CommentListShow
-            comments={eve.comments}
-            session={session}
-            isOwner={isOwner}/>
-      </Col>
-    </Row>
-  );
-}
 
 
 function EventPage({events, session}) {
@@ -67,7 +48,20 @@ function EventPage({events, session}) {
   let eve = find_by_id(events, id);
   let isOwner = isOwner(session.user_id, eve);
   if (eve && session) {
-    return (<EventShow eve={eve} session={session} isOwner={isOwner}/>);
+    return (
+      <Row>
+        <Col>
+          <h1>{eve.name}</h1>
+          <h6>{eve.date}</h6>
+          <h6>{eve.user.name}</h6>
+          <p>{eve.desc}</p>
+          <CommentListShow
+              comments={eve.comments}
+              session={session}
+              isOwner={isOwner}/>
+        </Col>
+      </Row>
+    );
   } else {
     return (<h3>Please log in before viewing events.</h3>);
   }
