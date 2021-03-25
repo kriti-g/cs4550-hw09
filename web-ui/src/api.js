@@ -37,6 +37,20 @@ export function fetch_events() {
     }));
 }
 
+export function create_event(eve) {
+  let data = new FormData();
+  data.append("event[name]", eve.name);
+  data.append("event[desc]", eve.body);
+  fetch("http://localhost:4000/api/v1/events", {
+    method: 'POST',
+    // Fetch will handle reading the file object and
+    // submitting this as a multipart/form-data request.
+    body: data,
+  }).then((resp) => {
+    console.log(resp);
+  });
+}
+
 export function api_login(email, password) {
   api_post("/session", {email, password}).then((data) => {
     console.log("login resp", data);
