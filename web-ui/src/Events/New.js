@@ -43,9 +43,9 @@ export default function EventsNew() {
                           onChange={updateName}
                           value={eve.name} />
           </Form.Group>
-          <DatePicker selected={eve.date}
-                      onChange={updateDate}
-                      showTimeInput/>
+          // <DatePicker selected={eve.date}
+          //             onChange={updateDate}
+          //             showTimeInput/>
           <Form.Group>
             <Form.Label>Desc</Form.Label>
             <Form.Control as="textarea"
