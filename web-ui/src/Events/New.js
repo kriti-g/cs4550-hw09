@@ -42,7 +42,7 @@ export default function EventsNew() {
         <Form onSubmit={onSubmit}>
           <Form.Group>
             <Form.Label>Name</Form.Label>
-            <Form.Control as="text"
+            <Form.Control type="text"
                           onChange={updateName}
                           value={eve.name} />
           </Form.Group>
