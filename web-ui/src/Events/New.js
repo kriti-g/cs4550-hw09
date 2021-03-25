@@ -31,6 +31,9 @@ export default function EventsNew() {
     setEvent(e1);
   }
 
+  // <DatePicker selected={eve.date}
+  //             onChange={updateDate}
+  //             showTimeInput/>
   // Note: File input can't be a controlled input.
   return (
     <Row>
@@ -43,9 +46,7 @@ export default function EventsNew() {
                           onChange={updateName}
                           value={eve.name} />
           </Form.Group>
-          // <DatePicker selected={eve.date}
-          //             onChange={updateDate}
-          //             showTimeInput/>
+
           <Form.Group>
             <Form.Label>Desc</Form.Label>
             <Form.Control as="textarea"
