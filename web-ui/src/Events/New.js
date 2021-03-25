@@ -1,5 +1,6 @@
 import { Row, Col, Form, Button } from 'react-bootstrap';
-import { useState } from 'react'
+import { DatePicker } from 'react-datepicker';
+import { useState } from 'react';
 import { create_event } from '../api';
 
 export default function EventsNew() {
@@ -34,7 +35,7 @@ export default function EventsNew() {
   return (
     <Row>
       <Col>
-        <h2>New Post</h2>
+        <h2>New Event</h2>
         <Form onSubmit={onSubmit}>
           <Form.Group>
             <Form.Label>Name</Form.Label>
@@ -42,6 +43,9 @@ export default function EventsNew() {
                           onChange={updateName}
                           value={eve.name} />
           </Form.Group>
+          <DatePicker selected={eve.date}
+                      onChange={updateDate}
+                      showTimeInput/>
           <Form.Group>
             <Form.Label>Desc</Form.Label>
             <Form.Control as="textarea"

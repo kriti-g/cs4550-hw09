@@ -26,7 +26,7 @@ function Feed({events}) {
     <Row>
     <Col>
     <h2>Your Events</h2>
-    <Link to="/posts/new">New Post</Link>
+    <Link to="/posts/new">New Event</Link>
     </Col>
     </Row>
     <Row>

@@ -86,8 +86,8 @@ function AppNav({error}) {
         <Col>
           <Nav variant="pills">
             <Link to="/">Home</Link>
-          <Link to="/users">Users</Link>
-        </Nav>
+            <Link to="/users">Users</Link>
+          </Nav>
         </Col>
         <Col>
           <LoginOrInfo />
