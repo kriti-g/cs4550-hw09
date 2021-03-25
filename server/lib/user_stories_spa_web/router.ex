@@ -21,6 +21,7 @@ defmodule UserStoriesSpaWeb.Router do
     resources "/events", EventController, except: [:new, :edit]
     resources "/comments", CommentController, except: [:new, :edit]
     resources "/invites", InviteController, except: [:new, :edit]
+    resources "/session", SessionController, only: [:create]
   end
 
   # Other scopes may use custom stacks.
