@@ -1,4 +1,4 @@
-defmodule UserStoriesSpaWeb.PostController do
+defmodule UserStoriesSpaWeb.SessionController do
   use UserStoriesSpaWeb, :controller
 
   def create(conn, %{"email" => email, "password" => password}) do
