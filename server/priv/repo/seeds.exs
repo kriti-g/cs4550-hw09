@@ -32,13 +32,14 @@ e1 = %Event{
   desc: "Alice says Hi (in a while)!",
   date: ~N[2022-01-01 23:00:00]
 }
-Repo.insert!(e1)
+event = Repo.insert!(e1)
 
 c1 = %Comment{
+  event_id: event.id,
   user_id: alice.id,
-  event_id: e1.id,
   body: "alice left a comment"
 }
+
 Repo.insert!(c1)
 
 e2 = %Event{
