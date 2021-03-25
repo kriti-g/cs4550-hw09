@@ -3,9 +3,10 @@ import { Switch, Route } from 'react-router-dom';
 import capitalize from 'lodash/capitalize';
 
 import { Container } from 'react-bootstrap';
-import Users from "./Users";
-import Nav from "./Nav";
-import Feed from "./Feed";
+import Nav from './Nav';
+import Feed from './Feed';
+import UsersList from './Users/List';
+import UsersNew from './Users/New';
 
 function App() {
   return (
@@ -15,8 +16,11 @@ function App() {
         <Route path="/" exact>
           <Feed />
         </Route>
-        <Route path="/users">
-          <Users />
+        <Route path="/users" exact>
+          <UsersList />
+        </Route>
+        <Route path="/users/new">
+          <UsersNew />
         </Route>
       </Switch>
     </Container>
