@@ -1,6 +1,5 @@
 import './App.scss';
 import { Switch, Route } from 'react-router-dom';
-import capitalize from 'lodash/capitalize';
 
 import { Container } from 'react-bootstrap';
 import Nav from './Nav';

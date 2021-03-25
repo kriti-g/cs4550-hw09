@@ -42,11 +42,16 @@ export default function EventsNew() {
         <Form onSubmit={onSubmit}>
           <Form.Group>
             <Form.Label>Name</Form.Label>
-            <Form.Control as="text_input"
+            <Form.Control as="text"
                           onChange={updateName}
                           value={eve.name} />
           </Form.Group>
-
+          <Form.Group>
+            <Form.Label>Date</Form.Label>
+            <DatePicker selected={eve.date}
+                        onChange={updateDate}
+                        showTimeInput/>
+          </Form.Group>
           <Form.Group>
             <Form.Label>Desc</Form.Label>
             <Form.Control as="textarea"
