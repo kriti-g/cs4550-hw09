@@ -38,7 +38,7 @@ let SessionInfo = connect()(({session, dispatch}) => {
   }
   return (
     <p>
-      Logged in as {session.name} &nbsp;
+      Logged in as {session.name}, [{session.user_id}] &nbsp;
       <Button onClick={logout}>Logout</Button>
     </p>
   );

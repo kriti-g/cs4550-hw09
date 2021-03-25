@@ -19,7 +19,8 @@ function Event({eve}) {
   );
 }
 
-function Feed({events}) {
+
+function Feed({events, session}) {
   let cards = events.map((eve) => <Event eve={eve} key={eve.id} />);
   return (
     <>
@@ -36,4 +37,4 @@ function Feed({events}) {
   );
 }
 
-export default connect(({events}) => ({events}))(Feed);
+export default connect(({events, session}) => ({events, session}))(Feed);

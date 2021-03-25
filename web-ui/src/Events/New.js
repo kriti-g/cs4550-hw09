@@ -4,6 +4,7 @@ import Flatpickr from "react-flatpickr";
 import { useState } from 'react';
 import { create_event } from '../api';
 
+
 export default function EventsNew() {
   let [eve, setEvent] = useState({});
 
@@ -48,7 +49,7 @@ export default function EventsNew() {
                           value={eve.name} />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Date</Form.Label>
+            <Form.Label>Date: </Form.Label>
             <Flatpickr
                   data-enable-time
                   value={eve.date}
