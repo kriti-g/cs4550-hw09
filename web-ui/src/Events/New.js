@@ -40,10 +40,11 @@ function EventsNew({session}) {
 
   function updateDate(date) {
     let e1 = Object.assign({}, eve);
+    console.log(["date2", e1]);
     setDate(date);
     e1["date"] = formatDate(date[0]);
     setEvent(e1);
-    console.log(["date", e1]);
+    console.log(["date2", e1]);
   }
 
   function formatDate(d) {
