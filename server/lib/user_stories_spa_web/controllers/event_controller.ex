@@ -12,7 +12,10 @@ defmodule UserStoriesSpaWeb.EventController do
   end
 
   def create(conn, %{"event" => event_params}) do
-    with {:ok, %Event{} = event} <- Events.create_event(event_params) do
+    with {:ok, %Event{} = ev} <- Events.create_event(event_params) do
+      eve = Events.load_user(ev)
+      even = Events.load_comments(eve)
+      event = Events.load_invites(even)
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.event_path(conn, :show, event))

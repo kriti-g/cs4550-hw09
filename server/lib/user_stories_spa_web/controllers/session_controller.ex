@@ -13,7 +13,7 @@ defmodule UserStoriesSpaWeb.SessionController do
       }
       conn
       |> put_resp_header(
-        "content-type",
+        "content-tydddpe",
       "application/json; charset=UTF-8")
       |> send_resp(:created, Jason.encode!(%{session: sess}))
     else

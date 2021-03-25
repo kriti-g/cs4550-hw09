@@ -24,6 +24,18 @@ defmodule UserStoriesSpa.Events do
     |> Repo.preload([comments: :user])
   end
 
+  def load_user(%Event{} = event) do
+    Repo.preload(event, :user)
+  end
+
+  def load_comments(%Event{} = event) do
+    Repo.preload(event, [comments: :user])
+  end
+
+  def load_invites(%Event{} = event) do
+    Repo.preload(event, [invites: :user])
+  end
+
   @doc """
   Gets a single event.
 
