@@ -1,6 +1,7 @@
 defmodule UserStoriesSpaWeb.InviteView do
   use UserStoriesSpaWeb, :view
   alias UserStoriesSpaWeb.InviteView
+  alias UserStoriesSpaWeb.UserView
 
   def render("index.json", %{invites: invites}) do
     %{data: render_many(invites, InviteView, "invite.json")}
@@ -12,6 +13,8 @@ defmodule UserStoriesSpaWeb.InviteView do
 
   def render("invite.json", %{invite: invite}) do
     %{id: invite.id,
-      response: invite.response}
+      response: invite.response,
+      user: render_one(invite.user, UserView, "user.json")
+    }
   end
 end

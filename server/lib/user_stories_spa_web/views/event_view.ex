@@ -2,6 +2,8 @@ defmodule UserStoriesSpaWeb.EventView do
   use UserStoriesSpaWeb, :view
   alias UserStoriesSpaWeb.EventView
   alias UserStoriesSpaWeb.UserView
+  alias UserStoriesSpaWeb.InviteView
+  alias UserStoriesSpaWeb.CommentView
 
   def render("index.json", %{events: events}) do
     %{data: render_many(events, EventView, "event.json")}
@@ -16,6 +18,8 @@ defmodule UserStoriesSpaWeb.EventView do
       name: event.name,
       desc: event.desc,
       date: event.date,
-      user: render_one(event.user, UserView, "user.json")}
+      user: render_one(event.user, UserView, "user.json"),
+      invites: render_many(event.invites, InviteView, "invite.json"),
+      comments: render_many(event.comments, CommentView, "comment.json")}
   end
 end
