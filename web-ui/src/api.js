@@ -82,7 +82,7 @@ export function create_comment(com) {
     body: data,
   }).then((resp) => {
     console.log(resp);
-    return resp.json().then((null) => {
+    return resp.json().then(null, () => {
       let action = {
         type: 'error/set',
         data: 'Unable to post comment',
