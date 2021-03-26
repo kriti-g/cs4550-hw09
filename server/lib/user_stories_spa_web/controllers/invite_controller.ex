@@ -28,7 +28,8 @@ defmodule UserStoriesSpaWeb.InviteController do
       lin = "http://events-spa.gkriti.art/users/" <>  to_string(created.id) <> "/edit"
       [lin, Map.put(invite_params, "user_id", created.id)]
     end
-    with {:ok, %Invite{} = invite} <- Invites.create_invite(new_invite_params) do
+    with {:ok, %Invite{} = invi} <- Invites.create_invite(new_invite_params) do
+      invite = Invites.load_user(invi)
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.invite_path(conn, :show, invite))
