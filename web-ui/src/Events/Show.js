@@ -27,6 +27,7 @@ function NewInvite({eve, session}) {
       inv["event_id"] = eve.id;
       inv["response"] = "Pending";
       let response = create_invite(inv);
+      console.log(response);
       fetch_event(eve.id);
     }
   }
@@ -57,9 +58,9 @@ function NewInvite({eve, session}) {
 }
 
 function InviteShow({invite, owner_rights}) {
-  return (<><p>{invite.user.name} - {invite.response}</p></>)
+  let name = invite.user.name === "---CHANGE THIS TO YOUR NAME---" ? "Unregistered User" : invite.user.name;
+  return (<><p>{name} - {invite.response}</p></>)
 }
-
 
 
 function CommentsNew({eve, session}) {
