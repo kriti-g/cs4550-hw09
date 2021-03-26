@@ -68,7 +68,15 @@ export function create_event(eve, session) {
     // submitting this as a multipart/form-data request.
     body: data,
   }).then((resp) => {
-    console.log(resp);
+    return resp.json().then(null, () => {
+      let action = {
+        type: 'error/set',
+        data: 'Unable to make event',
+      };
+      store.dispatch(action);
+    });
+  }).then((data) => {
+    fetch_events();
   });
 }
 
