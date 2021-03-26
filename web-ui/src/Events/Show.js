@@ -166,6 +166,8 @@ function CommentControls({comment,  session, owner_rights}) {
       <Link to={deleteLink} onClick={() => deleteComment()}>Delete</Link>
     </div>
     );
+  } else {
+    return (<></>)
   }
 }
 
