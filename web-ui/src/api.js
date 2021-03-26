@@ -1,6 +1,7 @@
 import store from './store';
 
-export const base_url = "http://events-spa-api.gkriti.art/api/v1";
+//export const base_url = "http://events-spa-api.gkriti.art/api/v1";
+export const base_url = "http://localhost:4000/api/v1";
 
 export async function api_get(path) {
     let text = await fetch(base_url + path, {});
@@ -113,7 +114,6 @@ export function create_invite(inv) {
   }).then((resp) => {
     return resp.json();
   }).then((data) => {
-    console.log(["data", data])
     data = data.data;
     if ( data.user && data.user.name && data.user.name === "---CHANGE THIS TO YOUR NAME---") {
       let url = 'http://events-spa.gkriti.art/edituser/' + data.user.id;
