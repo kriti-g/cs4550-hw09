@@ -11,15 +11,24 @@ defmodule UserStoriesSpaWeb.EventController do
     render(conn, "index.json", events: events)
   end
 
-  def create(conn, %{"event" => event_params}) do
-    with {:ok, %Event{} = ev} <- Events.create_event(event_params) do
-      eve = Events.load_user(ev)
-      even = Events.load_comments(eve)
-      event = Events.load_invites(even)
-      conn
-      |> put_status(:created)
-      |> put_resp_header("location", Routes.event_path(conn, :show, event))
-      |> render("show.json", event: event)
+  def create(conn, %{"event" => event_params}, %{"session" => session}) do
+    case Phoenix.Token.verify(UserStoriesSpa.Endpoint, "user_id", token, max_age: 86400) do
+      {:ok, user_id} ->
+        with {:ok, %Event{} = ev} <- Events.create_event(event_params) do
+          eve = Events.load_user(ev)
+          even = Events.load_comments(eve)
+          event = Events.load_invites(even)
+          conn
+          |> put_status(:created)
+          |> put_resp_header("location", Routes.event_path(conn, :show, event))
+          |> render("show.json", event: event)
+        end
+      {:error, _} ->
+        conn
+        |> put_resp_header(
+          "content-type",
+        "application/json; charset=UTF-8")
+        |> send_resp(:unauthorized, Jason.encode!(%{error: "Failed to create."}))
     end
   end
 

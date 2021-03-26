@@ -54,12 +54,14 @@ export function fetch_event(id) {
     }));
 }
 
-export function create_event(eve) {
+export function create_event(eve, session) {
   let data = new FormData();
   data.append("event[name]", eve.name);
   data.append("event[desc]", eve.desc);
   data.append("event[date]", eve.date);
   data.append("event[user_id]", eve.user_id);
+  data.append("session[user_id]", session.user_id);
+  data.append("session[token]", session.token);
   fetch(base_url + "/events", {
     method: 'POST',
     // Fetch will handle reading the file object and
@@ -74,15 +76,13 @@ export function create_comment(com) {
   let data = new FormData();
   data.append("comment[body]", com.body);
   data.append("comment[event_id]", com.event_id);
-//  data.append("comment[user_id]", com.user_id);
+  data.append("comment[user_id]", com.user_id);
   fetch(base_url + "/comments", {
     method: 'POST',
     // Fetch will handle reading the file object and
     // submitting this as a multipart/form-data request.
     body: data,
   }).then((resp) => {
-    console.log(resp);
-    console.log(resp.json());
     return resp.json().then(null, () => {
       let action = {
         type: 'error/set',
@@ -91,7 +91,6 @@ export function create_comment(com) {
       store.dispatch(action);
     });
   }).then((data) => {
-    console.log(["comment", data]);
     fetch_event(com.event_id);
     fetch_events();
   });

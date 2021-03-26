@@ -19,7 +19,7 @@ function EventsNew({session}) {
       eve["user_id"] = session.user_id;
       console.log(tempDate);
       eve["date"] = formatDate(tempDate[0]);
-      let response = create_event(eve);
+      let response = create_event(eve, session);
       fetch_events(eve);
       history.push("/");
     } else {
