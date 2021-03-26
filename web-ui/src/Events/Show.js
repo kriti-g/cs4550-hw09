@@ -155,7 +155,7 @@ function CommentControls({comment,  session, owner_rights}) {
     fetch_events();
   }
 
-  if (owner_rights && comment.user.id === session.user_id) {
+  if (comment.user.id === session.user_id) {
     return (
     <div>
       <Link to={editLink}>Edit</Link>

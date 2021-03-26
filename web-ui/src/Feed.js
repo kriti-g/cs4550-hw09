@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { inInvites, isOwner } from './Events/Helper';
 
 function Event({eve}) {
+  let main_page = "/events/" + eve.id;
   return (
     <Col>
     <Card>
@@ -12,7 +13,8 @@ function Event({eve}) {
     <Card.Subtitle>{eve.date}</Card.Subtitle>
     <Card.Text>
     { eve.user.name}'s Event <br />
-    {eve.desc}
+    { eve.desc }
+    <Link to={main_page}>View</Link>
     </Card.Text>
     </Card.Body>
     </Card>
@@ -42,7 +44,6 @@ function LoggedIn({events, session}) {
     </>
   );
 }
-
 
 function Feed({events, session}) {
   if (session) {
