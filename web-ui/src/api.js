@@ -1,6 +1,7 @@
 import store from './store';
 
-export const base_url = "http://events-spa-api.gkriti.art/api/v1";
+//export const base_url = "http://events-spa-api.gkriti.art/api/v1";
+export const base_url = "http://localhost:4000/api/v1";
 
 export async function api_get(path) {
     let text = await fetch(base_url + path, {});
@@ -53,12 +54,14 @@ export function fetch_event(id) {
     }));
 }
 
-export function create_event(eve) {
+export function create_event(eve, session) {
   let data = new FormData();
   data.append("event[name]", eve.name);
   data.append("event[desc]", eve.desc);
   data.append("event[date]", eve.date);
   data.append("event[user_id]", eve.user_id);
+  data.append("session[user_id]", session.user_id);
+  data.append("session[token]", session.token);
   fetch(base_url + "/events", {
     method: 'POST',
     // Fetch will handle reading the file object and
@@ -80,9 +83,16 @@ export function create_comment(com) {
     // submitting this as a multipart/form-data request.
     body: data,
   }).then((resp) => {
+    return resp.json().then(null, () => {
+      let action = {
+        type: 'error/set',
+        data: 'Unable to post comment',
+      };
+      store.dispatch(action);
+    });
+  }).then((data) => {
     fetch_event(com.event_id);
     fetch_events();
-    console.log(resp);
   });
 }
 
@@ -113,7 +123,6 @@ export function create_invite(inv) {
   }).then((resp) => {
     return resp.json();
   }).then((data) => {
-    console.log(["data", data])
     data = data.data;
     if ( data.user && data.user.name && data.user.name === "---CHANGE THIS TO YOUR NAME---") {
       let url = 'http://events-spa.gkriti.art/edituser/' + data.user.id;
@@ -163,12 +172,14 @@ export function update_user(user) {
   });
 }
 
-export function update_event(eve) {
+export function update_event(eve, session) {
   let data = new FormData();
   data.append("event[name]", eve.name);
   data.append("event[desc]", eve.desc);
   data.append("event[date]", eve.date);
   data.append("id", eve.id);
+  data.append("session[user_id]", session.user_id);
+  data.append("session[token]", session.token);
   fetch(base_url + "/events/" + eve.id, {
     method: 'PATCH',
     // Fetch will handle reading the file object and

@@ -14,11 +14,21 @@ defmodule UserStoriesSpa.Users.User do
     timestamps()
   end
 
+  @password_opts [
+    length: [min: 8, max: 30, messages: [too_short: "Password is too short!"]],
+    character_set: [
+      upper_case: [1, :infinity], # at least one upper case letters
+      numbers: [1, :infinity],  # from 1 to 4 number characters
+    ]
+  ]
+
   @doc false
   def changeset(user, attrs) do
+    password = attrs["password"]
     user
     |> cast(attrs, [:name, :email])
-    |> add_password_hash(attrs["password"])
+    |> validate_password(password, @password_opts)
+    |> add_password_hash(password)
     |> validate_required([:name, :email, :password_hash])
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
@@ -30,6 +40,11 @@ defmodule UserStoriesSpa.Users.User do
     |> validate_required([:name, :email])
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
+  end
+
+  def validate_password(cset, password, opts) do
+    PasswordValidator.validate_password(password, @password_opts)
+    cset
   end
 
   def add_password_hash(cset, nil) do
