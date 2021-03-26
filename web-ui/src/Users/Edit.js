@@ -34,6 +34,18 @@ function check_pass(p1, p2) {
     return "Password too short.";
   }
 
+  if (p1.length > 30) {
+    return "Password too long.";
+  }
+
+  if (!(/\d/.test(p1))){
+    return "Password must contain a number."
+  }
+
+  if (p1.toLowerCase() === p1){
+    return "Password must contain an uppercase character."
+  }
+
   return "";
 }
 
