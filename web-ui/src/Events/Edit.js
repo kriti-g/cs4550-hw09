@@ -1,8 +1,10 @@
 import { Row, Col, Form, Button, Nav, NavLink, Card, Alert, ButtonGroup } from 'react-bootstrap';
 import { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useHistory } from 'react-router-dom';
 import { fetch_event, update_event } from '../api';
 import { connect } from 'react-redux';
+import "flatpickr/dist/themes/material_green.css";
+import Flatpickr from "react-flatpickr";
 import { isOwner, countInvites, getThisInvite } from './Helper';
 
 function EventEdit({current_event, session}) {
@@ -17,9 +19,7 @@ function EventEdit({current_event, session}) {
         eve["date"] = formatDate(tempDate[0]);
         let response = update_event(eve);
         fetch_event(current_event.id);
-        history.push("/");
-      } else {
-        error = (<p>Login to do this.</p>)
+        history.push("/events/" + );
       }
     }
 
@@ -70,7 +70,6 @@ function EventEdit({current_event, session}) {
       <Row>
         <Col>
           <h2>Edit Event</h2>
-          {error}
           <Form onSubmit={onSubmit}>
             <Form.Group>
               <Form.Label>Name</Form.Label>
