@@ -9,7 +9,7 @@ import { formatDate } from './Helper';
 
 function EventsNew({session}) {
   let [eve, setEvent] = useState({});
-  let [tempDate, setDate] = useState(new Date());
+  let [tempDate, setDate] = useState([new Date()]);
   let history = useHistory();
   let error = (<></>);
 
