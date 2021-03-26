@@ -17,6 +17,7 @@ function EventsNew({session}) {
     ev.preventDefault();
     if (session) {
       eve["user_id"] = session.user_id;
+      console.log(tempDate);
       eve["date"] = formatDate(tempDate[0]);
       let response = create_event(eve);
       fetch_events(eve);

@@ -25,6 +25,7 @@ export function countInvites(invites) {
 }
 
 export function formatDate(d) {
+
   var month = '' + (d.getMonth() + 1),
   day = '' + d.getDate(),
   year = d.getFullYear(),
