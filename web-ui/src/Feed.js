@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { inInvites, isOwner } from './Events/Helper';
 
-function Event({eve}) {
+function Event({eve, key}) {
   let main_page = "/events/" + eve.id;
   return (
     <Col>
