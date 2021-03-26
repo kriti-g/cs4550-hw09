@@ -23,7 +23,7 @@ config :user_stories_spa, UserStoriesSpaWeb.Endpoint,
   watchers: []
 
 config :cors_plug,
-  origin: ["http://localhost:3000"],
+  origin: ["http://localhost:3000", "http://events-spa.gkriti.art"],
   max_age: 86400,
   methods: ["GET", "POST", "PATCH", "DELETE"]
 # ## SSL Support
