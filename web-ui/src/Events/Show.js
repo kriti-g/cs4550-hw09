@@ -14,6 +14,7 @@ function InviteListShow({invites, owner_rights, session, eve}) {
       {new_invite}
       <h4>Invites</h4>
       <p>{counted}</p>
+      <RespondInvite session={session} invites={invites}/>
       {rendered}
       </>);
 }
@@ -57,6 +58,8 @@ function RespondInvite({session, invites}) {
         </Col>
       </Row>
     );
+  } else {
+    return (<></>);
   }
 }
 
