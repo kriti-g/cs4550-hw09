@@ -33,8 +33,6 @@ export DATABASE_URL=ecto://user_stories:$DB_PASS@localhost/user_stories_spa_prod
 
 mix ecto.migrate
 
-npm install --prefix ./assets
-npm run deploy --prefix ./assets
 mix phx.digest
 
 mix release
