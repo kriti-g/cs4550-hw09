@@ -265,6 +265,7 @@ function LoggedInCheck({current_event, session}) {
 
 function EOL({session, current_event}) {
   let {id} = useParams();
+  console.log("EOL")
   if (!(current_event && current_event.id == id)) {
     fetch_event(id);
     return (<h4>Loading event...</h4>);
