@@ -82,6 +82,7 @@ export function create_comment(com) {
     body: data,
   }).then((resp) => {
     console.log(resp);
+    console.log(resp.json());
     return resp.json().then(null, () => {
       let action = {
         type: 'error/set',
@@ -90,10 +91,10 @@ export function create_comment(com) {
       store.dispatch(action);
     });
   }).then((data) => {
+    console.log(["comment", data]);
     fetch_event(com.event_id);
     fetch_events();
   });
-});
 }
 
 export function delete_comment(com) {
