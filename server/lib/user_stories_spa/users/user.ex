@@ -24,6 +24,9 @@ defmodule UserStoriesSpa.Users.User do
 
   @doc false
   def changeset(user, attrs) do
+    IO.inspect([:before, attrs])
+    password = attrs["password"]
+    IO.inspect([:after, attrs, password])
     PasswordValidator.validate(attrs["password"], @password_opts)
     user
     |> cast(attrs, [:name, :email])
