@@ -17,10 +17,9 @@ function EventEdit({current_event, session}) {
       if (session) {
         eve["user_id"] = current_event.user.id;
         eve["date"] = formatDate(tempDate[0]);
-        update_event(eve).then(() => {
-          fetch_event(current_event.id);
-          history.push("/events/" + current_event.id);
-        });
+        update_event(eve);
+        fetch_event(current_event.id);
+        history.push("/events/" + current_event.id);
       }
     }
 
