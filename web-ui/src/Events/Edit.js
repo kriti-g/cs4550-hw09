@@ -124,7 +124,7 @@ function EOL({session, current_event}) {
 
 const EventOrLoading = connect(({session, current_event}) => ({session, current_event}))(EOL);
 
-function CreatePage({error}) {
+function EditEventPage({error}) {
   let error_row = null;
   if (error) {
     error_row = (
@@ -143,4 +143,4 @@ function CreatePage({error}) {
   );
 }
 
-export default connect(({error}) => ({error}))(CreatePage);
+export default connect(({error}) => ({error}))(EditEventPage);

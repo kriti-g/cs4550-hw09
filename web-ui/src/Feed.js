@@ -35,7 +35,7 @@ function LoggedIn({events, session}) {
     <Row>
     <Col>
     <h2>{session.name}'s Events</h2>
-    <Link to="/events/new">New Event</Link>
+    <p><Link to="/events/new">New Event</Link></p>
     </Col>
     </Row>
     <Row>

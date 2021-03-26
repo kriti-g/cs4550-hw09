@@ -8,6 +8,7 @@ import UsersList from './Users/List';
 import UsersNew from './Users/New';
 import EventNew from './Events/New';
 import EventPage from './Events/Show';
+import EditEventPage from './Events/Edit';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Feed />
         </Route>
         <Route path="/events/:id" component={EventPage}/>
+        <Route path="/events/:id/edit" component={EditEventPage}/>
         <Route path="/users" exact>
           <UsersList />
         </Route>
