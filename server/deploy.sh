@@ -11,26 +11,6 @@ export DATABASE_URL=ecto://user_stories_spa:ainuu2vaeD6i@localhost/user_stories_
 mix deps.get --only prod
 mix compile
 
-# CFGD=$(readlink -f ~/.config/user_stories_spa)
-#
-# if [ ! -d "$CFGD" ]; then
-#     mkdir -p "$CFGD"
-# fi
-#
-# if [ ! -e "$CFGD/base" ]; then
-#     mix phx.gen.secret > "$CFGD/base"
-# fi
-#
-# if [ ! -e "$CFGD/db_pass" ]; then
-#     pwgen 12 1 > "$CFGD/db_pass"
-# fi
-#
-# SECRET_KEY_BASE=$(cat "$CFGD/base")
-# export SECRET_KEY_BASE
-#
-# DB_PASS=$(cat "$CFGD/db_pass")
-# export DATABASE_URL=ecto://user_stories:$DB_PASS@localhost/user_stories_spa_prod
-
 mix ecto.reset
 
 mix release
