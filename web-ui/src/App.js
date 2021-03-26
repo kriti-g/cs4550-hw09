@@ -22,7 +22,7 @@ function App() {
           <Feed />
         </Route>
         <Route path="/events/:id" component={EventPage}/>
-        <Route path="/events/edit/:id" component={EditEventPage}/>
+        <Route path="/editevent/:id" component={EditEventPage}/>
         <Route path="/users" exact>
           <UsersList />
         </Route>

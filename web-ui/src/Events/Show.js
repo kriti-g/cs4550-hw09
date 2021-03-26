@@ -202,7 +202,7 @@ function CommentListShow({comments, eve, session, owner_rights}){
 
 
 function EventControls({eve}) {
-  let editLink = "/events/edit/" + eve.id;
+  let editLink = "/editevent/" + eve.id;
   let deleteLink = "/";
 
   function deleteEvent() {
@@ -265,8 +265,6 @@ function LoggedInCheck({current_event, session}) {
 
 function EOL({session, current_event}) {
   let {id} = useParams();
-  let params = useParams();
-  console.log(params);
   if (!(current_event && current_event.id == id)) {
     fetch_event(id);
     return (<h4>Loading event...</h4>);
