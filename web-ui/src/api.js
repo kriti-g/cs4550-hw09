@@ -78,6 +78,8 @@ export function create_comment(com) {
     // submitting this as a multipart/form-data request.
     body: data,
   }).then((resp) => {
+    fetch_event(com.event_id);
+    fetch_events();
     console.log(resp);
   });
 }
@@ -91,7 +93,8 @@ export function delete_comment(com) {
     // submitting this as a multipart/form-data request.
     body: data,
   }).then((resp) => {
-    console.log(resp);
+    fetch_event(com.event_id);
+    fetch_events();
   });
 }
 

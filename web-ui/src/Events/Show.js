@@ -145,25 +145,14 @@ function CommentsNew({eve, session}) {
 }
 
 function CommentControls({comment,  session, owner_rights}) {
-  let editLink = "/comments/" + comment.id + "/edit";
   let deleteLink = "/events/" + comment.event_id;
 
   function deleteComment() {
     // delete the comment, update this event
     delete_comment(comment);
-    fetch_event(comment.event_id);
-    fetch_events();
   }
 
-  if (comment.user.id === session.user_id) {
-    return (
-    <div>
-      <Link to={editLink}>Edit</Link>
-       /
-      <Link to={deleteLink} onClick={() => deleteComment()}>Delete</Link>
-    </div>
-    );
-  } else if (owner_rights) {
+  if (comment.user.id === session.user_id || owner_rights)  {
     return (
     <div>
       <Link to={deleteLink} onClick={() => deleteComment()}>Delete</Link>
