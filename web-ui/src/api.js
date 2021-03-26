@@ -26,6 +26,13 @@ export function fetch_users() {
     }));
 }
 
+export function fetch_user(id) {
+    api_get("/users/"+id).then((data) => store.dispatch({
+        type: 'user_form/set',
+        data: data,
+    }));
+}
+
 export function create_user(user) {
   return api_post("/users", {user});
 }
@@ -100,6 +107,7 @@ export function create_invite(inv) {
     body: data,
   }).then((resp) => {
     console.log(resp);
+    console.log(resp.body);
   });
 }
 
@@ -142,7 +150,13 @@ export function delete_event(eve) {
     // submitting this as a multipart/form-data request.
     body: data,
   }).then((resp) => {
-    console.log(resp);
+    if(!resp.ok){
+      let action = {
+        type: 'error/set',
+        data: 'Unable to delete event.',
+      };
+      store.dispatch(action);
+    }
   });
 }
 
