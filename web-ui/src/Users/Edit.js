@@ -2,7 +2,7 @@
 import { Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import pick from 'lodash/pick';
 
 import { create_user, fetch_users, fetch_user } from '../api';
@@ -92,7 +92,7 @@ return (
 function LoggedInCheck({current_user, session}) {
   if ((current_user && session && session.user_id==current_user.id)
       || (current_user && current_user.name === "---CHANGE THIS TO YOUR NAME---")) {
-    return (<EventEdit current_event={current_event} session={session}/>);
+    return (<UserEdit current_user={current_user} session={session}/>);
   } else {
     return (<><h3>User not available.</h3>
       <p>Please make sure you are logged in or have other access.</p></>);
@@ -105,7 +105,7 @@ function UOL({session, user_form}) {
     fetch_user(id);
     return (<h4>Loading user...</h4>);
   } else {
-    return (<LoggedInCheck current_user={current_user} session={session}/>);
+    return (<LoggedInCheck current_user={user_form} session={session}/>);
   }
 }
 
