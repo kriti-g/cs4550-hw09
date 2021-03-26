@@ -19,7 +19,7 @@ function EventEdit({current_event, session}) {
         eve["date"] = formatDate(tempDate[0]);
         let response = update_event(eve);
         fetch_event(current_event.id);
-        history.push("/events/" + );
+        history.push("/events/" + current_event.id);
       }
     }
 
