@@ -29,7 +29,7 @@ function RespondInvite({session, invites}) {
       inv["id"] = sessionInvite.id;
       inv["response"] = invResponse;
       let response = update_invite(inv);
-      fetch_event(eve.id);
+      fetch_event(sessionInvite.event_id);
     }
   }
   function updateResponse(ev) {
