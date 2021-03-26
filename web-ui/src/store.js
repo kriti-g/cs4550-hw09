@@ -18,7 +18,6 @@ function user_form(state = {}, action) {
   }
 }
 
-
 function save_session(sess) {
   let session = Object.assign({}, sess, {time: Date.now()});
   localStorage.setItem("session", JSON.stringify(session));

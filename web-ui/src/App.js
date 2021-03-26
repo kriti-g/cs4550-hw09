@@ -6,10 +6,10 @@ import Nav from './Nav';
 import Feed from './Feed';
 import UsersList from './Users/List';
 import UsersNew from './Users/New';
+import EditUserPage from './Users/Edit';
 import EventNew from './Events/New';
 import EventPage from './Events/Show';
 import EditEventPage from './Events/Edit';
-import EditUserPage from './Users/Edit';
 
 function App() {
   return (

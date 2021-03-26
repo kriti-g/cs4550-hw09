@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import pick from 'lodash/pick';
 
-import { create_user, fetch_users, fetch_user } from '../api';
+import { update_user, fetch_users, fetch_user } from '../api';
 
 function UserEdit({current_user}) {
 let history = useHistory();
@@ -17,7 +17,9 @@ function onSubmit(ev) {
   ev.preventDefault();
 
   let data = pick(user, ['name', 'email', 'password']);
-  create_user(data).then(() => {
+  data["id"] = current_user.id;
+  console.log(["user", data])
+  update_user(data).then(() => {
     fetch_users();
     history.push("/users");
   });

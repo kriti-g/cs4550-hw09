@@ -125,6 +125,22 @@ export function update_invite(inv) {
   });
 }
 
+export function update_user(user) {
+  let data = new FormData();
+  data.append("id", user.id);
+  data.append("user[name]", user.name);
+  data.append("user[email]", user.email);
+  data.append("user[password]", user.password);
+  fetch("http://localhost:4000/api/v1/users/"+user.id, {
+    method: 'PATCH',
+    // Fetch will handle reading the file object and
+    // submitting this as a multipart/form-data request.
+    body: data,
+  }).then((resp) => {
+    console.log(resp);
+  });
+}
+
 export function update_event(eve) {
   let data = new FormData();
   data.append("event[name]", eve.name);
