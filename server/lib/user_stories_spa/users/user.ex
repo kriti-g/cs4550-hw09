@@ -24,9 +24,9 @@ defmodule UserStoriesSpa.Users.User do
 
   @doc false
   def changeset(user, attrs) do
+    PasswordValidator.validate(attrs["password"], @password_opts)
     user
-    |> cast(attrs, [:name, :email, :password])
-    |> PasswordValidator.validate(:password, @password_opts)
+    |> cast(attrs, [:name, :email])
     |> add_password_hash(attrs["password"])
     |> validate_required([:name, :email, :password_hash])
     |> validate_format(:email, ~r/@/)
