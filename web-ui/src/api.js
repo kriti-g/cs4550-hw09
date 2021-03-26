@@ -180,7 +180,6 @@ export function update_event(eve, session) {
   data.append("id", eve.id);
   data.append("session[user_id]", session.user_id);
   data.append("session[token]", session.token);
-  console.log(data);
   fetch(base_url + "/events/" + eve.id, {
     method: 'PATCH',
     // Fetch will handle reading the file object and
