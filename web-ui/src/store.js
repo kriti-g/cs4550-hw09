@@ -62,6 +62,15 @@ function error(state = null, action) {
   }
 }
 
+function message(state = [], action) {
+  switch (action.type) {
+    case 'message/set':
+      return action.data;
+    default:
+      return state;
+  }
+}
+
 function events(state = [], action) {
   switch (action.type) {
     case 'events/set':
@@ -84,7 +93,7 @@ function root_reducer(state, action) {
   console.log("root reducer", state, action);
 
   let redu = combineReducers(
-    {users, user_form, events, session, error, current_event}
+    {users, user_form, events, session, error, current_event, message}
   );
 
   let state1 = redu(state, action);

@@ -109,8 +109,24 @@ export function create_invite(inv) {
     // submitting this as a multipart/form-data request.
     body: data,
   }).then((resp) => {
-    console.log(resp);
-    console.log(resp.body);
+    return resp.json();
+  }).then((data) => {
+    console.log(data)
+    if ( data.user && date.user.name && data.user.name === "---CHANGE THIS TO YOUR NAME---") {
+      let url = 'http://events-spa.gkriti.art/edituser/' + data.user.id;
+      let action = {
+        type: 'message/set',
+        data: url,
+      };
+      store.dispatch(action);
+    } else if (data.event_id) {
+      let url = 'http://events-spa.gkriti.art/events/' + data.event_id;
+      let action = {
+        type: 'message/set',
+        data: url,
+      };
+      store.dispatch(action);
+    }
   });
 }
 

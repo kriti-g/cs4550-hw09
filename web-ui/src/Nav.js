@@ -68,9 +68,9 @@ function Link({to, children}) {
   );
 }
 
-function AppNav({error}) {
+function AppNav({error, message}) {
   let error_row = null;
-
+  let msg_row = null;
   if (error) {
     error_row = (
       <Row>
@@ -81,7 +81,15 @@ function AppNav({error}) {
     );
   }
 
-
+  if (message) {
+    msg_row = (
+      <Row>
+        <Col>
+          <Alert variant="info">{message}</Alert>
+        </Col>
+      </Row>
+    );
+  }
   return (
     <div>
       <Row>
@@ -96,8 +104,9 @@ function AppNav({error}) {
         </Col>
       </Row>
       { error_row }
+      { msg_row }
     </div>
   );
 }
 
-export default connect(({error})=>({error}))(AppNav);
+export default connect(({error, message})=>({error, message}))(AppNav);
