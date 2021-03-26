@@ -30,7 +30,7 @@ mix compile
 #
 # DB_PASS=$(cat "$CFGD/db_pass")
 # export DATABASE_URL=ecto://user_stories:$DB_PASS@localhost/user_stories_spa_prod
-
+mix phx.digest
 mix ecto.reset
 
 mix release
