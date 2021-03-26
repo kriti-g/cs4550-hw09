@@ -27,7 +27,7 @@ defmodule UserStoriesSpa.Users.User do
     IO.inspect([:before, attrs])
     password = attrs["password"]
     IO.inspect([:after, attrs, password])
-    PasswordValidator.validate(attrs["password"], @password_opts)
+    PasswordValidator.validate(password, @password_opts)
     user
     |> cast(attrs, [:name, :email])
     |> add_password_hash(attrs["password"])
