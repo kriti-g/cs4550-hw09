@@ -20,6 +20,11 @@ config :user_stories_spa, UserStoriesSpaWeb.Endpoint,
   pubsub_server: UserStoriesSpa.PubSub,
   live_view: [signing_salt: "WGJCSiRn"]
 
+config :cors_plug,
+  origin: ["http://events-spa.gkriti.art"],
+  max_age: 86400,
+  methods: ["GET", "POST", "PATCH", "DELETE"]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

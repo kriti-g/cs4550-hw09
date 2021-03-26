@@ -1,6 +1,6 @@
 import store from './store';
 
-export const base_url = "http://localhost:4000/api/v1";
+export const base_url = "http://events-spa-api.gkriti.art/api/v1";
 
 export async function api_get(path) {
     let text = await fetch(base_url + path, {});
