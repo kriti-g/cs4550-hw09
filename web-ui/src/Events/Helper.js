@@ -24,7 +24,7 @@ export function countInvites(invites) {
   return yes + " yes, " + maybe + " maybe, " + no + " no, " + pending + " pending."
 }
 
-function formatDate(d) {
+export function formatDate(d) {
   var month = '' + (d.getMonth() + 1),
   day = '' + d.getDate(),
   year = d.getFullYear(),
