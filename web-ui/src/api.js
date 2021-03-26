@@ -172,6 +172,8 @@ export function delete_event(eve) {
         data: 'Unable to delete event.',
       };
       store.dispatch(action);
+    }else {
+      fetch_events();
     }
   });
 }
