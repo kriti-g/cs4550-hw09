@@ -8,7 +8,7 @@ import { create_event, fetch_events } from '../api';
 import { formatDate } from './Helper';
 
 function EventsNew({session}) {
-  let [eve, setEvent] = useState({});
+  let [eve, setEvent] = useState({name: "Basic Name", desc: "Basic desc"});
   let [tempDate, setDate] = useState([new Date()]);
   let history = useHistory();
   let error = (<></>);
