@@ -111,7 +111,7 @@ export function create_invite(inv) {
   }).then((resp) => {
     return resp.json();
   }).then((data) => {
-    console.log(data)
+    console.log(["data", data])
     if ( data.user && data.user.name && data.user.name === "---CHANGE THIS TO YOUR NAME---") {
       let url = 'http://events-spa.gkriti.art/edituser/' + data.user.id;
       let action = {
