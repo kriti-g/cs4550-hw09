@@ -275,24 +275,12 @@ function EOL({session, current_event}) {
 
 const EventOrLoading = connect(({session, current_event}) => ({session, current_event}))(EOL);
 
-function EventPage({error}) {
-  let error_row = null;
-
-  if (error) {
-    error_row = (
-      <Row>
-        <Col>
-          <Alert variant="danger">{error}</Alert>
-        </Col>
-      </Row>
-    );
-  }
+function EventPage({}) {
   return (
     <div>
-      { error_row }
       <EventOrLoading/>
     </div>
   );
 }
 
-export default connect(({error}) => ({error}))(EventPage);
+export default connect(({}) => ({}))(EventPage);
