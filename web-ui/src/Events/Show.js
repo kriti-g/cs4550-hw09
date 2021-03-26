@@ -202,7 +202,7 @@ function CommentListShow({comments, eve, session, owner_rights}){
 
 
 function EventControls({eve}) {
-  let editLink = "/events/" + eve.id + "/edit";
+  let editLink = "/events/edit/" + eve.id;
   let deleteLink = "/";
 
   function deleteEvent() {
