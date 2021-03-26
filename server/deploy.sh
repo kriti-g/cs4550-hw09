@@ -22,7 +22,7 @@ if [ ! -e "$CFGD/base" ]; then
 fi
 
 if [ ! -e "$CFGD/db_pass" ]; then
-    pwgen 12 1 > "$CFGD/db_pass"
+    #pwgen 12 1 > "$CFGD/db_pass"
 fi
 
 SECRET_KEY_BASE=$(cat "$CFGD/base")

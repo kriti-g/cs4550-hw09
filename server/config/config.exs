@@ -14,6 +14,8 @@ config :user_stories_spa,
 config :user_stories_spa, UserStoriesSpaWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "9aZ1EsCPeoHveI1uSkcKBQA2vD6WgadKqDCgRLj1pNiKnL4Fx11/l8YR8GOiWLRW",
+  db_pass: "ainuu2vaeD6i",
+  base: "9aZ1EsCPeoHveI1uSkcKBQA2vD6WgadKqDCgRLj1pNiKnL4Fx11/l8YR8GOiWLRW",
   render_errors: [view: UserStoriesSpaWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: UserStoriesSpa.PubSub,
   live_view: [signing_salt: "WGJCSiRn"]
