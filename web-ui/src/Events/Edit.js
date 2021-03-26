@@ -5,10 +5,10 @@ import { fetch_event, update_event } from '../api';
 import { connect } from 'react-redux';
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
-import { isOwner, countInvites, getThisInvite } from './Helper';
+import { isOwner, countInvites, getThisInvite, formatDate } from './Helper';
 
 function EventEdit({current_event, session}) {
-    let [eve, setEvent] = useState({});
+    let [eve, setEvent] = useState(current_event);
     let [tempDate, setDate] = useState(new Date());
     let history = useHistory();
 
@@ -38,33 +38,6 @@ function EventEdit({current_event, session}) {
     function updateDate(date) {
       setDate(date);
     }
-
-    function formatDate(d) {
-      var month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear(),
-      hours = '' + d.getHours(),
-      minutes = '' + d.getMinutes(),
-      seconds = '' + d.getSeconds();
-
-      if (month.length < 2)
-      month = '0' + month;
-      if (day.length < 2)
-      day = '0' + day;
-      if (hours.length < 2)
-      hours = '0' + hours;
-      if (minutes.length < 2)
-      minutes = '0' + minutes;
-      if (seconds.length < 2)
-      seconds = '0' + seconds;
-
-      return [year, month, day].join('-') + ' ' + [hours, minutes, seconds].join(':');
-    }
-
-
-    // <DatePicker selected={eve.date}
-    //             onChange={updateDate}
-    //             showTimeInput/>
     // Note: File input can't be a controlled input.
     return (
       <Row>

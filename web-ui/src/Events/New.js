@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import Flatpickr from "react-flatpickr";
 import { useState } from 'react';
 import { create_event, fetch_events } from '../api';
+import { formatDate } from './Helper';
 
 function EventsNew({session}) {
   let [eve, setEvent] = useState({});
@@ -41,33 +42,6 @@ function EventsNew({session}) {
     setDate(date);
   }
 
-  function formatDate(d) {
-    var month = '' + (d.getMonth() + 1),
-    day = '' + d.getDate(),
-    year = d.getFullYear(),
-    hours = '' + d.getHours(),
-    minutes = '' + d.getMinutes(),
-    seconds = '' + d.getSeconds();
-
-    if (month.length < 2)
-    month = '0' + month;
-    if (day.length < 2)
-    day = '0' + day;
-    if (hours.length < 2)
-    hours = '0' + hours;
-    if (minutes.length < 2)
-    minutes = '0' + minutes;
-    if (seconds.length < 2)
-    seconds = '0' + seconds;
-
-    return [year, month, day].join('-') + ' ' + [hours, minutes, seconds].join(':');
-  }
-
-
-  // <DatePicker selected={eve.date}
-  //             onChange={updateDate}
-  //             showTimeInput/>
-  // Note: File input can't be a controlled input.
   return (
     <Row>
       <Col>
