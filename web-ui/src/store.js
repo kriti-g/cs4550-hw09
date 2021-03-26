@@ -62,7 +62,7 @@ function error(state = null, action) {
   }
 }
 
-function message(state = [], action) {
+function message(state = null, action) {
   switch (action.type) {
     case 'message/set':
       return action.data;
