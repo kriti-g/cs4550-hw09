@@ -25,10 +25,10 @@ defmodule UserStoriesSpa.Users.User do
   @doc false
   def changeset(user, attrs) do
     password = attrs["password"]
-    PasswordValidator.validate_password(password, @password_opts)
     user
     |> cast(attrs, [:name, :email])
-    |> add_password_hash(attrs["password"])
+    |> validate_password(password, @password_opts)
+    |> add_password_hash(password)
     |> validate_required([:name, :email, :password_hash])
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
@@ -40,6 +40,11 @@ defmodule UserStoriesSpa.Users.User do
     |> validate_required([:name, :email])
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
+  end
+
+  def validate_password(cset, password, opts) do
+    PasswordValidator.validate_password(password, @password_opts)
+    cset
   end
 
   def add_password_hash(cset, nil) do
