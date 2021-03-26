@@ -37,11 +37,27 @@ defmodule UserStoriesSpaWeb.EventController do
     render(conn, "show.json", event: event)
   end
 
-  def update(conn, %{"id" => id, "event" => event_params}) do
-    event = Events.get_event!(id)
-
-    with {:ok, %Event{} = event} <- Events.update_event(event, event_params) do
-      render(conn, "show.json", event: event)
+  def update(conn, %{"id" => id, "event" => event_params, "session" => session}) do
+    case Phoenix.Token.verify(conn, "user_id", session["token"], max_age: 86400) do
+      {:ok, user_id} ->
+        event = Events.get_event!(id)
+        if event.user_id == user_id do
+          with {:ok, %Event{} = event} <- Events.update_event(event, event_params) do
+            render(conn, "show.json", event: event)
+          end
+        else
+          conn
+          |> put_resp_header(
+            "content-type",
+          "application/json; charset=UTF-8")
+          |> send_resp(:unauthorized, Jason.encode!(%{error: "No access to this event."}))
+        end
+      {:error, _} ->
+        conn
+        |> put_resp_header(
+          "content-type",
+        "application/json; charset=UTF-8")
+        |> send_resp(:unauthorized, Jason.encode!(%{error: "Failed to update."}))
     end
   end
 

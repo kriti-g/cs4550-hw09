@@ -172,12 +172,14 @@ export function update_user(user) {
   });
 }
 
-export function update_event(eve) {
+export function update_event(eve, session) {
   let data = new FormData();
   data.append("event[name]", eve.name);
   data.append("event[desc]", eve.desc);
   data.append("event[date]", eve.date);
   data.append("id", eve.id);
+  data.append("session[user_id]", session.user_id);
+  data.append("session[token]", session.token);
   fetch(base_url + "/events/" + eve.id, {
     method: 'PATCH',
     // Fetch will handle reading the file object and
