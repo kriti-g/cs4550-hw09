@@ -103,6 +103,20 @@ export function create_invite(inv) {
   });
 }
 
+export function update_invite(inv) {
+  let data = new FormData();
+  data.append("id", inv.id);
+  data.append("invite[response]", inv.response);
+  fetch("http://localhost:4000/api/v1/invites/"+inv.id, {
+    method: 'PATCH',
+    // Fetch will handle reading the file object and
+    // submitting this as a multipart/form-data request.
+    body: data,
+  }).then((resp) => {
+    console.log(resp);
+  });
+}
+
 export function update_event(eve) {
   let data = new FormData();
   data.append("event[name]", eve.name);
