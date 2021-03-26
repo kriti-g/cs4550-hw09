@@ -25,6 +25,7 @@ function NewInvite({eve, session}) {
     ev.preventDefault();
     if (session) {
       inv["event_id"] = eve.id;
+      inv["response"] = "Pending";
       let response = create_invite(inv);
       fetch_event(eve.id);
     }

@@ -92,6 +92,7 @@ export function create_invite(inv) {
   let data = new FormData();
   data.append("invite[user_email]", inv.user_email);
   data.append("invite[event_id]", inv.event_id);
+  data.append("invite[response]", inv.response);
   fetch("http://localhost:4000/api/v1/invites", {
     method: 'POST',
     // Fetch will handle reading the file object and
