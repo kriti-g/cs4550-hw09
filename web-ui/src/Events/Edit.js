@@ -9,7 +9,7 @@ import { isOwner, countInvites, getThisInvite } from './Helper';
 
 function EventEdit({current_event, session}) {
     let [eve, setEvent] = useState({});
-    let [tempDate, setDate] = useState(new Date(current_event.date));
+    let [tempDate, setDate] = useState(new Date());
     let history = useHistory();
 
     function onSubmit(ev) {
