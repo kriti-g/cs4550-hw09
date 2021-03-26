@@ -12,7 +12,7 @@ defmodule UserStoriesSpaWeb.EventController do
   end
 
   def create(conn, %{"event" => event_params, "session" => session}) do
-    case Phoenix.Token.verify(UserStoriesSpa.Endpoint, "user_id", session["token"], max_age: 86400) do
+    case Phoenix.Token.verify(conn, "user_id", session["token"], max_age: 86400) do
       {:ok, user_id} ->
         with {:ok, %Event{} = ev} <- Events.create_event(event_params) do
           eve = Events.load_user(ev)
