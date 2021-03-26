@@ -74,17 +74,26 @@ export function create_comment(com) {
   let data = new FormData();
   data.append("comment[body]", com.body);
   data.append("comment[event_id]", com.event_id);
-  data.append("comment[user_id]", com.user_id);
+//  data.append("comment[user_id]", com.user_id);
   fetch(base_url + "/comments", {
     method: 'POST',
     // Fetch will handle reading the file object and
     // submitting this as a multipart/form-data request.
     body: data,
   }).then((resp) => {
+    console.log(resp);
+    return resp.json().then((null) => {
+      let action = {
+        type: 'error/set',
+        data: 'Unable to post comment',
+      };
+      store.dispatch(action);
+    });
+  }).then((data) => {
     fetch_event(com.event_id);
     fetch_events();
-    console.log(resp);
   });
+});
 }
 
 export function delete_comment(com) {
