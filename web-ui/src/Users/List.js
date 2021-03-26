@@ -2,13 +2,15 @@ import { Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-function UsersList({users}) {
-  let rows = users.map((user) => (
-    <tr key={user.id}>
+function UsersList({users, session}) {
+  let rows = users.map((user) => {
+    let url = "/edituser/" + user.id;
+    let control = session.user_id == user.id ? (<Link to={url}>Edit</Link>) : (<></>)
+    return (<tr key={user.id}>
       <td>{user.name}</td>
-      <td>[Edit]</td>
-    </tr>
-  ));
+      <td>{control}</td>
+    </tr>);
+  });
 
   return (
     <div>
@@ -38,8 +40,8 @@ function UsersList({users}) {
 
 }
 
-function state2props({users}) {
-  return { users };
+function state2props({users, session}) {
+  return { users, session };
 }
 
 export default connect(state2props)(UsersList);

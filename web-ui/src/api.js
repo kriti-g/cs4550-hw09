@@ -137,7 +137,7 @@ export function update_user(user) {
     // submitting this as a multipart/form-data request.
     body: data,
   }).then((resp) => {
-    console.log(resp);
+    fetch_users();
   });
 }
 

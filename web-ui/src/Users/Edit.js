@@ -20,7 +20,6 @@ function onSubmit(ev) {
   data["id"] = current_user.id;
   console.log(["user", data])
   update_user(data)
-  fetch_users();
   history.push("/users");
 }
 
