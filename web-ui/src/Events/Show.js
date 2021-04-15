@@ -149,7 +149,7 @@ function CommentControls({comment,  session, owner_rights}) {
 
   function deleteComment() {
     // delete the comment, update this event
-    delete_comment(comment);
+    delete_comment(comment.id);
   }
 
   if (comment.user.id === session.user_id || owner_rights)  {
@@ -196,7 +196,7 @@ function EventControls({eve}) {
 
   function deleteEvent() {
     // delete the event, then update the list that the app works from.
-    delete_event(eve);
+    delete_event(eve.id);
     fetch_events();
   }
 

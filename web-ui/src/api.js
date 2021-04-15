@@ -1,25 +1,68 @@
 import store from './store';
 
-//export const base_url = "http://events-spa-api.gkriti.art/api/v1";
+//export const base_url = "https://events-spa-api.gkriti.art/api/v1";
 export const base_url = "http://localhost:4000/api/v1";
 
+function session_token() {
+  let state = store.getState();
+  return state?.session?.token;
+}
+
 export async function api_get(path) {
-    let text = await fetch(base_url + path, {});
-    let resp = await text.json();
-    return resp.data;
+  let stoken = session_token();
+  let opts = {
+    method: "GET",
+    headers: {
+      "Session-Token": stoken,
+    },
+  };
+  let text = await fetch(url + path, opts);
+  let resp = await text.json();
+  return resp.data;
 }
 
 async function api_post(path, data) {
+  let stoken = session_token();
   let opts = {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
+      "Session-Token": stoken,
     },
     body: JSON.stringify(data),
   };
-  let text = await fetch(
-    base_url + path, opts);
+  let text = await fetch(url + path, opts);
   return await text.json();
+}
+
+async function api_patch(path, data) {
+  let stoken = session_token();
+  let opts = {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      "Session-Token": stoken,
+    },
+    body: JSON.stringify(data),
+  };
+
+  let text = await fetch(url + path, opts);
+  return await text.json();
+}
+
+async function api_delete(path, data) {
+  let stoken = session_token();
+  let opts = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "Session-Token": stoken,
+    },
+    body: JSON.stringify(data),
+  };
+
+  let text = await fetch(url + path, opts);
+  return text;
 }
 
 export function fetch_users() {
@@ -40,6 +83,10 @@ export function create_user(user) {
   return api_post("/users", {user});
 }
 
+export async function update_user(user) {
+  return api_patch("/users/" + user.id, { user });
+}
+
 export function fetch_events() {
     api_get("/events").then((data) => store.dispatch({
         type: 'events/set',
@@ -54,169 +101,36 @@ export function fetch_event(id) {
     }));
 }
 
-export function create_event(eve, session) {
-  let data = new FormData();
-  data.append("event[name]", eve.name);
-  data.append("event[desc]", eve.desc);
-  data.append("event[date]", eve.date);
-  data.append("event[user_id]", eve.user_id);
-  data.append("session[user_id]", session.user_id);
-  data.append("session[token]", session.token);
-  fetch(base_url + "/events", {
-    method: 'POST',
-    // Fetch will handle reading the file object and
-    // submitting this as a multipart/form-data request.
-    body: data,
-  }).then((resp) => {
-    return resp.json().then(null, () => {
-      let action = {
-        type: 'error/set',
-        data: 'Unable to make event',
-      };
-      store.dispatch(action);
-    });
-  }).then((data) => {
-    fetch_events();
-  });
+export async function create_event(event) {
+  return await api_post("/events", { event });
 }
 
-export function create_comment(com) {
-  let data = new FormData();
-  data.append("comment[body]", com.body);
-  data.append("comment[event_id]", com.event_id);
-  data.append("comment[user_id]", com.user_id);
-  fetch(base_url + "/comments", {
-    method: 'POST',
-    // Fetch will handle reading the file object and
-    // submitting this as a multipart/form-data request.
-    body: data,
-  }).then((resp) => {
-    return resp.json().then(null, () => {
-      let action = {
-        type: 'error/set',
-        data: 'Unable to post comment',
-      };
-      store.dispatch(action);
-    });
-  }).then((data) => {
-    fetch_event(com.event_id);
-    fetch_events();
-  });
+export async function update_event(eve) {
+  return api_patch("/events/" + eve.id, { eve });
 }
 
-export function delete_comment(com) {
-  let data = new FormData();
-  data.append("id", com.id);
-  fetch(base_url + "/comments/"+com.id, {
-    method: 'DELETE',
-    // Fetch will handle reading the file object and
-    // submitting this as a multipart/form-data request.
-    body: data,
-  }).then((resp) => {
-    fetch_event(com.event_id);
-    fetch_events();
-  });
+export function delete_event(eve_id) {
+  return api_delete("/events/" + eve_id, { id: eve_id });
+}
+
+export async function create_comment(com) {
+  return await api_post("/comments", { com });
+}
+
+export async function delete_comment(com_id) {
+  return api_delete("/comments/" + com_id, { id: com_id });
 }
 
 export function create_invite(inv) {
-  let data = new FormData();
-  data.append("invite[user_email]", inv.user_email);
-  data.append("invite[event_id]", inv.event_id);
-  data.append("invite[response]", inv.response);
-  fetch(base_url + "/invites", {
-    method: 'POST',
-    // Fetch will handle reading the file object and
-    // submitting this as a multipart/form-data request.
-    body: data,
-  }).then((resp) => {
-    return resp.json();
-  }).then((data) => {
-    data = data.data;
-    if ( data.user && data.user.name && data.user.name === "---CHANGE THIS TO YOUR NAME---") {
-      let url = 'http://events-spa.gkriti.art/edituser/' + data.user.id;
-      let action = {
-        type: 'message/set',
-        data: url,
-      };
-      store.dispatch(action);
-    } else if (data.event_id) {
-      let url = 'http://events-spa.gkriti.art/events/' + data.event_id;
-      let action = {
-        type: 'message/set',
-        data: url,
-      };
-      store.dispatch(action);
-    }
-  });
+  return await api_post("/invites", { inv });
 }
 
 export function update_invite(inv) {
-  let data = new FormData();
-  data.append("id", inv.id);
-  data.append("invite[response]", inv.response);
-  fetch(base_url + "/invites/"+inv.id, {
-    method: 'PATCH',
-    // Fetch will handle reading the file object and
-    // submitting this as a multipart/form-data request.
-    body: data,
-  }).then((resp) => {
-    console.log(resp);
-  });
+  return api_patch("/invites/" + inv.id, { inv });
 }
 
-export function update_user(user) {
-  let data = new FormData();
-  data.append("id", user.id);
-  data.append("user[name]", user.name);
-  data.append("user[email]", user.email);
-  data.append("user[password]", user.password);
-  fetch(base_url + "/users/"+user.id, {
-    method: 'PATCH',
-    // Fetch will handle reading the file object and
-    // submitting this as a multipart/form-data request.
-    body: data,
-  }).then((resp) => {
-    fetch_users();
-  });
-}
-
-export function update_event(eve, session) {
-  let data = new FormData();
-  data.append("event[name]", eve.name);
-  data.append("event[desc]", eve.desc);
-  data.append("event[date]", eve.date);
-  data.append("id", eve.id);
-  data.append("session[user_id]", session.user_id);
-  data.append("session[token]", session.token);
-  fetch(base_url + "/events/" + eve.id, {
-    method: 'PATCH',
-    // Fetch will handle reading the file object and
-    // submitting this as a multipart/form-data request.
-    body: data,
-  }).then((resp) => {
-    console.log(resp);
-  });
-}
-
-export function delete_event(eve) {
-  let data = new FormData();
-  data.append("id", eve.id);
-  fetch(base_url + "/events/"+eve.id, {
-    method: 'DELETE',
-    // Fetch will handle reading the file object and
-    // submitting this as a multipart/form-data request.
-    body: data,
-  }).then((resp) => {
-    if(!resp.ok){
-      let action = {
-        type: 'error/set',
-        data: 'Unable to delete event.',
-      };
-      store.dispatch(action);
-    }else {
-      fetch_events();
-    }
-  });
+export async function update_user(user) {
+  return api_patch("/users/" + user.id, { user });
 }
 
 export function api_login(email, password) {

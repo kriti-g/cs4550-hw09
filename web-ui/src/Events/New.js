@@ -11,20 +11,15 @@ function EventsNew({session}) {
   let [eve, setEvent] = useState({name: "Basic Name", desc: "Basic desc"});
   let [tempDate, setDate] = useState([new Date()]);
   let history = useHistory();
-  let error = (<></>);
 
   function onSubmit(ev) {
     ev.preventDefault();
-    if (session) {
-      eve["user_id"] = session.user_id;
-      console.log(tempDate);
-      eve["date"] = formatDate(tempDate[0]);
-      let response = create_event(eve, session);
-      fetch_events(eve);
-      history.push("/");
-    } else {
-      error = (<p>Login to do this.</p>)
-    }
+    eve["user_id"] = session.user_id;
+    console.log(tempDate);
+    eve["date"] = formatDate(tempDate[0]);
+    let response = create_event(eve);
+    fetch_events(eve);
+    history.push("/");
   }
 
   function updateName(ev) {
@@ -47,7 +42,6 @@ function EventsNew({session}) {
     <Row>
       <Col>
         <h2>New Event</h2>
-        {error}
         <Form onSubmit={onSubmit}>
           <Form.Group>
             <Form.Label>Name</Form.Label>

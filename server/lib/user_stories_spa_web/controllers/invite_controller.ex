@@ -4,6 +4,9 @@ defmodule UserStoriesSpaWeb.InviteController do
   alias UserStoriesSpa.Invites
   alias UserStoriesSpa.Invites.Invite
   alias UserStoriesSpa.Users
+  alias UserStoriesSpaWeb.Plugs
+
+  plug Plugs.RequireLoggedIn when action in [:show, :update, :delete, :create]
 
   action_fallback UserStoriesSpaWeb.FallbackController
 
@@ -28,12 +31,17 @@ defmodule UserStoriesSpaWeb.InviteController do
       lin = "http://events-spa.gkriti.art/users/" <>  to_string(created.id) <> "/edit"
       [lin, Map.put(invite_params, "user_id", created.id)]
     end
-    with {:ok, %Invite{} = invi} <- Invites.create_invite(new_invite_params) do
-      invite = Invites.load_user(invi)
-      conn
-      |> put_status(:created)
-      |> put_resp_header("location", Routes.invite_path(conn, :show, invite))
-      |> render("show.json", invite: invite)
+    case Invites.create_invite(new_invite_params) do
+      {:ok, %Invite{} = invi} ->
+        invite = Invites.load_user(invi)
+        conn
+        |> put_status(:created)
+        |> put_resp_header("location", Routes.invite_path(conn, :show, invite))
+        |> render("show.json", invite: invite)
+      {:error, _changeset} ->
+        conn
+        |> put_resp_header("content-type", "application/json; charset=UTF-8")
+        |> send_resp(422, Jason.encode!(%{error: "Failed to create invite."}))
     end
   end
 
@@ -45,16 +53,25 @@ defmodule UserStoriesSpaWeb.InviteController do
   def update(conn, %{"id" => id, "invite" => invite_params}) do
     invite = Invites.get_invite!(id)
 
-    with {:ok, %Invite{} = invite} <- Invites.update_invite(invite, invite_params) do
-      render(conn, "show.json", invite: invite)
+    case Invites.update_invite(invite, invite_params) do
+      {:ok, %Invite{} = invite} ->
+        render(conn, "show.json", invite: invite)
+      {:error, _changeset} ->
+        conn
+        |> put_resp_header("content-type", "application/json; charset=UTF-8")
+        |> send_resp(422, Jason.encode!(%{error: "Failed to update invite."}))
     end
   end
 
   def delete(conn, %{"id" => id}) do
     invite = Invites.get_invite!(id)
-
-    with {:ok, %Invite{}} <- Invites.delete_invite(invite) do
-      send_resp(conn, :no_content, "")
+    case Invites.delete_invite(invite) do
+      {:ok, %Invite{}} ->
+        send_resp(conn, :no_content, "")
+      {:error, _changeset} ->
+        conn
+        |> put_resp_header("content-type", "application/json; charset=UTF-8")
+        |> send_resp(422, Jason.encode!(%{error: "Failed to delete invite."}))
     end
   end
 end
