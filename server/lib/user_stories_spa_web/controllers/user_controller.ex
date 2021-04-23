@@ -5,8 +5,8 @@ defmodule UserStoriesSpaWeb.UserController do
   alias UserStoriesSpa.Users.User
   alias UserStoriesSpaWeb.Plugs
 
-  plug Plugs.RequireLoggedIn when action in [:show, :delete]
-  plug :require_this_user when action in [:show, :delete]
+  plug Plugs.RequireLoggedIn when action in [:delete]
+  plug :require_this_user when action in [:delete]
   action_fallback UserStoriesSpaWeb.FallbackController
 
   def require_this_user(conn, _arg) do

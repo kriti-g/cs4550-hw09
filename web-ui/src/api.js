@@ -1,6 +1,6 @@
 import store from './store';
 
-export const url = "https://events-spa-api.gkriti.art/api/v1";
+export const url = "https://events-spa.gkriti.art/api/v1";
 //export const url = "http://localhost:4000/api/v1";
 
 function session_token() {
