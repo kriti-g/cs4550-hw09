@@ -21,7 +21,7 @@ complete
 
 
 5. Is your app properly deployed? If not, what went wrong?
-start.sh does not start a server and point to the endpoint. just sits there forever.
+complete
 
 
 
