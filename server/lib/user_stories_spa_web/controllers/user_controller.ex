@@ -3,6 +3,7 @@ defmodule UserStoriesSpaWeb.UserController do
 
   alias UserStoriesSpa.Users
   alias UserStoriesSpa.Users.User
+  alias UserStoriesSpaWeb.Plugs
 
   plug Plugs.RequireLoggedIn when action in [:show, :delete]
   plug :require_this_user when action in [:show, :delete]
