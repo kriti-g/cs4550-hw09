@@ -18,9 +18,10 @@ function onSubmit(ev) {
 
   let data = pick(user, ['name', 'email', 'password']);
   data["id"] = current_user.id;
-  console.log(["user", data])
-  update_user(data)
-  history.push("/users");
+  update_user(data).then(() => {
+    fetch_users();
+    history.push("/users");
+  });
 }
 
 function check_pass(p1, p2) {

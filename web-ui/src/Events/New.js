@@ -6,6 +6,7 @@ import Flatpickr from "react-flatpickr";
 import { useState } from 'react';
 import { create_event, fetch_events } from '../api';
 import { formatDate } from './Helper';
+import store from "../store";
 
 function EventsNew({session}) {
   let [eve, setEvent] = useState({name: "Basic Name", desc: "Basic desc"});
@@ -17,9 +18,15 @@ function EventsNew({session}) {
     eve["user_id"] = session.user_id;
     console.log(tempDate);
     eve["date"] = formatDate(tempDate[0]);
-    let response = create_event(eve);
-    fetch_events(eve);
-    history.push("/");
+    create_event(eve).then((rsp) => {
+        if (rsp.error) {
+          // if receiving an error, display it.
+          store.dispatch({type: "error/set", data: rsp.error});
+        } else {
+          fetch_events(eve);
+          history.push("/");
+        }
+    })
   }
 
   function updateName(ev) {

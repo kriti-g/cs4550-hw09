@@ -19,8 +19,12 @@ function user_form(state = {}, action) {
 }
 
 function save_session(sess) {
-  let session = Object.assign({}, sess, {time: Date.now()});
-  localStorage.setItem("session", JSON.stringify(session));
+  if (sess) {
+    let session = Object.assign({}, sess, { time: Date.now() });
+    localStorage.setItem("session", JSON.stringify(session));
+  } else {
+    localStorage.removeItem("session");
+  }
 }
 
 function load_session() {
@@ -45,6 +49,7 @@ function session(state = load_session(), action) {
     save_session(action.data);
     return action.data;
   case 'session/clear':
+    save_session(null);
     return null;
   default:
     return state;
@@ -66,6 +71,8 @@ function message(state = null, action) {
   switch (action.type) {
     case 'message/set':
       return action.data;
+    case 'message/clear':
+      return null;
     default:
       return state;
   }

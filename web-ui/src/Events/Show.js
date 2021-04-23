@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { fetch_event, delete_event, fetch_events, create_comment, delete_comment, create_invite, update_invite } from '../api';
 import { connect } from 'react-redux';
 import { isOwner, countInvites, getThisInvite } from './Helper';
+import store from "../store";
 
 function InviteListShow({invites, owner_rights, session, eve}) {
     let counted = countInvites(invites);
@@ -25,12 +26,18 @@ function RespondInvite({session, invites}) {
 
   function onSubmit(ev) {
     ev.preventDefault();
-    let inv = {};
+    let invite = {};
     if (sessionInvite) {
-      inv["id"] = sessionInvite.id;
-      inv["response"] = invResponse;
-      let response = update_invite(inv);
-      fetch_event(sessionInvite.event_id);
+      invite["id"] = sessionInvite.id;
+      invite["response"] = invResponse;
+      update_invite(invite).then((rsp) => {
+          if (rsp.error) {
+            // if receiving an error, display it.
+            store.dispatch({type: "error/set", data: rsp.error});
+          } else {
+            fetch_event(sessionInvite.event_id);
+          }
+      })
     }
   }
   function updateResponse(ev) {
@@ -64,19 +71,25 @@ function RespondInvite({session, invites}) {
 }
 
 function NewInvite({eve, session}) {
-  let [inv, setInvite] = useState({});
+  let [invite, setInvite] = useState({});
   function onSubmit(ev) {
     ev.preventDefault();
     if (session) {
-      inv["event_id"] = eve.id;
-      inv["response"] = "Pending";
-      let response = create_invite(inv);
-      console.log(response);
-      fetch_event(eve.id);
+      invite["event_id"] = eve.id;
+      invite["response"] = "Pending";
+      create_invite(invite).then((rsp) => {
+          if (rsp.error) {
+            // if receiving an error, display it.
+            store.dispatch({type: "error/set", data: rsp.error});
+          } else {
+            store.dispatch({type: "message/set", data: rsp.link});
+            fetch_event(eve.id);
+          }
+      })
     }
   }
   function updateEmail(ev) {
-    let i1 = Object.assign({}, inv);
+    let i1 = Object.assign({}, invite);
     i1["user_email"] = ev.target.value;
     setInvite(i1);
   }
@@ -88,7 +101,7 @@ function NewInvite({eve, session}) {
             <Form.Control type="email"
                           placeholder="Type a new invitee's email..."
                           onChange={email => { updateEmail(email); }}
-                          value={inv.user_email} />
+                          value={invite.user_email} />
           </Form.Group>
           <Button variant="primary" type="submit">
             Invite
@@ -113,8 +126,14 @@ function CommentsNew({eve, session}) {
     if (session) {
       com["user_id"] = session.user_id;
       com["event_id"] = eve.id;
-      let response = create_comment(com);
-      fetch_event(eve.id);
+      create_comment(com).then((rsp) => {
+          if (rsp.error) {
+            // if receiving an error, display it.
+            store.dispatch({type: "error/set", data: rsp.error});
+          } else {
+            fetch_event(eve.id);
+          }
+      })
     }
   }
 
@@ -196,8 +215,14 @@ function EventControls({eve}) {
 
   function deleteEvent() {
     // delete the event, then update the list that the app works from.
-    delete_event(eve.id);
-    fetch_events();
+    delete_event(eve.id).then((rsp) => {
+        if (rsp.error) {
+          // if receiving an error, display it.
+          store.dispatch({type: "error/set", data: rsp.error});
+        } else {
+          fetch_events();
+        }
+    })
   }
 
   return (

@@ -17,9 +17,10 @@ config :user_stories_spa, UserStoriesSpaWeb.Endpoint,
 config :logger, level: :info
 
 config :cors_plug,
-  origin: ["http://events-spa.gkriti.art"],
+  origin: ["https://events-spa.gkriti.art"],
   max_age: 86400,
-  methods: ["GET", "POST", "PATCH", "DELETE"]
+  methods: ["GET", "POST", "PATCH", "DELETE"],
+  headers: ["Content-Type", "Session-Token"]
 
 # ## SSL Support
 #

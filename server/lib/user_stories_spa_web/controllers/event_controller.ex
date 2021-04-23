@@ -6,8 +6,23 @@ defmodule UserStoriesSpaWeb.EventController do
   alias UserStoriesSpaWeb.Plugs
 
   plug Plugs.RequireLoggedIn when action in [:show, :update, :delete, :create]
+  plug :require_owner when action in [:update, :delete]
 
   action_fallback UserStoriesSpaWeb.FallbackController
+
+  def require_owner(conn, _arg) do
+    event_id = String.to_integer(conn.params["id"])
+    event = Events.get_event!(event_id)
+    user = conn.assigns[:user]
+    if (user.id == event.user_id) do
+      conn
+    else
+      conn
+      |> put_resp_header("content-type", "application/json; charset=UTF-8")
+      |> send_resp(:unauthorized, Jason.encode!(%{"error" => "You don't have access to this event."}))
+      |> halt()
+    end
+  end
 
   def index(conn, _params) do
     events = Events.list_events()

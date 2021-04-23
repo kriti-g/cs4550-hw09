@@ -23,8 +23,8 @@ function App() {
           <Feed />
         </Route>
         <Route path="/events/:id" component={EventPage}/>
-        <Route path="/editevent/:id" component={EditEventPage}/>
-        <Route path="/edituser/:id" component={EditUserPage}/>
+        <Route path="/events/:id/edit" component={EditEventPage}/>
+        <Route path="/users/:id/edit" component={EditUserPage}/>
         <Route path="/users" exact>
           <UsersList />
         </Route>

@@ -19,7 +19,7 @@ defmodule UserStoriesSpaWeb.InviteController do
     email = invite_params["user_email"]
     user = Users.get_user_by_email(email)
     [link, new_invite_params] = if user do
-      lin = "http://events-spa.gkriti.art/events/" <> to_string(invite_params["event_id"])
+      lin = "https://events-spa.gkriti.art/events/" <> to_string(invite_params["event_id"])
       [lin, Map.put(invite_params, "user_id", user.id)]
     else
       new_user = %{
@@ -28,7 +28,7 @@ defmodule UserStoriesSpaWeb.InviteController do
         password_hash: "nohash"
       }
       {:ok, created} = Users.create_user_artificial(new_user)
-      lin = "http://events-spa.gkriti.art/users/" <>  to_string(created.id) <> "/edit"
+      lin = "https://events-spa.gkriti.art/users/" <>  to_string(created.id) <> "/edit"
       [lin, Map.put(invite_params, "user_id", created.id)]
     end
     case Invites.create_invite(new_invite_params) do
@@ -36,8 +36,8 @@ defmodule UserStoriesSpaWeb.InviteController do
         invite = Invites.load_user(invi)
         conn
         |> put_status(:created)
-        |> put_resp_header("location", Routes.invite_path(conn, :show, invite))
-        |> render("show.json", invite: invite)
+        |> put_resp_header("content-type", "application/json; charset=UTF-8")
+        |> send_resp(200, Jason.encode!(%{link: link}))
       {:error, _changeset} ->
         conn
         |> put_resp_header("content-type", "application/json; charset=UTF-8")

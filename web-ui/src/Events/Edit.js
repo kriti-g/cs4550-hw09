@@ -1,5 +1,6 @@
 import { Row, Col, Form, Button, Nav, NavLink, Card, Alert, ButtonGroup } from 'react-bootstrap';
 import { useState } from 'react';
+import store from "../store";
 import { useParams, Link, useHistory } from 'react-router-dom';
 import { fetch_event, update_event } from '../api';
 import { connect } from 'react-redux';
@@ -17,9 +18,15 @@ function EventEdit({current_event, session}) {
       if (session) {
         eve["user_id"] = current_event.user.id;
         eve["date"] = formatDate(tempDate[0]);
-        update_event(eve, session);
-        fetch_event(current_event.id);
-        history.push("/events/" + current_event.id);
+        update_event(eve).then((rsp) => {
+            if (rsp.error) {
+              // if receiving an error, display it.
+              store.dispatch({type: "error/set", data: rsp.error});
+            } else {
+              fetch_event(current_event.id);
+              history.push("/events/" + current_event.id);
+            }
+        })
       }
     }
 

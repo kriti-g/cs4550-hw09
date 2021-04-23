@@ -4,7 +4,21 @@ defmodule UserStoriesSpaWeb.UserController do
   alias UserStoriesSpa.Users
   alias UserStoriesSpa.Users.User
 
+  plug Plugs.RequireLoggedIn when action in [:show, :delete]
+  plug :require_this_user when action in [:show, :delete]
   action_fallback UserStoriesSpaWeb.FallbackController
+
+  def require_this_user(conn, _arg) do
+    this_user_id = String.to_integer(conn.params["id"])
+    if conn.assigns[:user].id == this_user_id do
+      conn
+    else
+      conn
+      |> put_resp_header("content-type", "application/json; charset=UTF-8")
+      |> send_resp(:unauthorized, Jason.encode!(%{"error" => "Accessing a user which doesn't match the session."}))
+      |> halt()
+    end
+  end
 
   def index(conn, _params) do
     users = Users.list_users()

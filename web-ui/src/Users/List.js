@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function UsersList({users, session}) {
   let rows = users.map((user) => {
-    let url = "/edituser/" + user.id;
+    let url = "/users/" + user.id + "/edit";
     let control = (session && session.user_id == user.id) ? (<Link to={url}>Edit</Link>) : (<></>)
     return (<tr key={user.id}>
       <td>{user.name}</td>
